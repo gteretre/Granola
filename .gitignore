@@ -1,7 +1,8 @@
 #Directories
 .vs/
 bin/
-bin-int
-
+bin-int/
+vendor/
+Granola/vendor/
 #Files
 *.user

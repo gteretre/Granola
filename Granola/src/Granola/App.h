@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Core.h"
+#include "Events/Event.h"
 
 namespace Granola
 {
@@ -9,7 +10,7 @@ namespace Granola
 		App();
 		virtual ~App();
 
-		void Run();
+		static void Run();
 	};
 
 	// To be defined in client

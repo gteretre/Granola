@@ -1,6 +1,8 @@
 #include <Granola.h>
+// TODO spdlog may not work (linker problem)
+// D:\Cpp\Granola\vendor\spdlog\include;
 
-class Sandbox : public Granola::App
+class Sandbox final : public Granola::App
 {
 public:
 	Sandbox()
@@ -15,5 +17,5 @@ public:
 Granola::App *Granola::CreateApp()
 {
 	return new Sandbox();
-	// use smart pointers
+	// TODO use smart pointers
 }

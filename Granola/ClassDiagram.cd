@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Granola::App">
+    <Position X="10" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAgAAI=</HashCode>
+      <FileName>src\Granola\App.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::AppRenderEvent">
+    <Position X="6" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAIAAAAAAAABAAAAAAAAAAAAABAAAAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\ApplicationEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::AppTickEvent">
+    <Position X="11.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAIAAAAAAAABAAACAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\ApplicationEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::AppUpdateEvent">
+    <Position X="14.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABAAAIAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\ApplicationEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Event">
+    <Position X="11.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAIAAAAIAAAEEAAAAEAAAgAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\Event.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::EventDispatcher">
+    <Position X="13.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAgAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Granola\Events\Event.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::KeyEvent">
+    <Position X="9.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAIAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAACAAAA=</HashCode>
+      <FileName>src\Granola\Events\KeyEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::KeyPressedEvent">
+    <Position X="8" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAFAAAAAAAABAAAIAAABAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\KeyEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::KeyReleasedEvent">
+    <Position X="10.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAFAAAAAAAAAAAAAIAAAAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\KeyEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Log">
+    <Position X="15.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAACABAAAAAAAAAAAAAAAAAAAAABAAACAAAAAAA=</HashCode>
+      <FileName>src\Granola\Log.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::MouseButtonEvent">
+    <Position X="16.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAMAAIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Granola\Events\MouseEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::MouseButtonPressedEvent">
+    <Position X="14.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BABAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\MouseEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::MouseButtonReleasedEvent">
+    <Position X="17" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAgAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\MouseEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::MouseMovedEvent">
+    <Position X="18.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAIIAAAAAAAFAAADAAAAAAAAAAAAYAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\MouseEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::MouseScrolledEvent">
+    <Position X="20.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAIAMAAAAAAFAAAAAAAAgAAAAAAAAAAAAACABAA=</HashCode>
+      <FileName>src\Granola\Events\MouseEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::WindowCloseEvent">
+    <Position X="13" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAIAAAAAAAIBAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>src\Granola\Events\ApplicationEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::WindowResizeEvent">
+    <Position X="7.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAIAAAAAAAAFAAAAAABAAAAAAACAEAAAAEAABAA=</HashCode>
+      <FileName>src\Granola\Events\ApplicationEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Granola::EventCategory">
+    <Position X="17" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAQAAAAAAAAAAAAAAAAAAAQAAQAAEAAIA=</HashCode>
+      <FileName>src\Granola\Events\Event.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Granola::EventType">
+    <Position X="18.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAEACAAAAAAgAAAIgAAAAgAAAAEBAgAAAAAIABFgAQA=</HashCode>
+      <FileName>src\Granola\Events\Event.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
