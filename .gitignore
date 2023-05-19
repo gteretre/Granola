@@ -2,7 +2,7 @@
 .vs/
 bin/
 bin-int/
-vendor/
-Granola/vendor/
+#vendor/
+#Granola/vendor/
 #Files
 *.user
