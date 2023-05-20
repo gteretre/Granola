@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Core.h"
+#include "Window.h"
 #include "Events/Event.h"
 
 namespace Granola
@@ -10,7 +11,11 @@ namespace Granola
 		App();
 		virtual ~App();
 
-		static void Run();
+		void Run();
+
+	private:
+		std::unique_ptr<Window> m_Window;
+		bool m_IsRunning = true;
 	};
 
 	// To be defined in client

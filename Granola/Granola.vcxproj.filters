@@ -1,52 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Granola">
-      <UniqueIdentifier>{A90F2C6E-15EF-AA09-1E07-36E08A65116B}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Granola\Events">
-      <UniqueIdentifier>{6D6310E3-5931-04E9-42C5-740F2E32E04D}</UniqueIdentifier>
+    <Filter Include="src\Granola">
+      <UniqueIdentifier>{C00F6677-2CC5-DE6C-B5B9-D843216ED570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Granola\Events">
+      <UniqueIdentifier>{A483F440-9067-B596-F9C7-AFE9E5CA9F18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform">
+      <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\Windows">
+      <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Granola.h" />
+    <ClInclude Include="src\Granola.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\Granola\App.h">
-      <Filter>Granola</Filter>
+      <Filter>src\Granola</Filter>
     </ClInclude>
     <ClInclude Include="src\Granola\Core.h">
-      <Filter>Granola</Filter>
+      <Filter>src\Granola</Filter>
     </ClInclude>
     <ClInclude Include="src\Granola\EntryPoint.h">
-      <Filter>Granola</Filter>
+      <Filter>src\Granola</Filter>
     </ClInclude>
     <ClInclude Include="src\Granola\Events\ApplicationEvent.h">
-      <Filter>Granola\Events</Filter>
+      <Filter>src\Granola\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Granola\Events\Event.h">
-      <Filter>Granola\Events</Filter>
+      <Filter>src\Granola\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Granola\Events\KeyEvent.h">
-      <Filter>Granola\Events</Filter>
+      <Filter>src\Granola\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Granola\Events\MouseEvent.h">
-      <Filter>Granola\Events</Filter>
+      <Filter>src\Granola\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Granola\Log.h">
-      <Filter>Granola</Filter>
+      <Filter>src\Granola</Filter>
     </ClInclude>
-    <ClInclude Include="src\grlpch.h" />
+    <ClInclude Include="src\Granola\Window.h">
+      <Filter>src\Granola</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>src\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\grlpch.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Granola\App.cpp">
-      <Filter>Granola</Filter>
+      <Filter>src\Granola</Filter>
     </ClCompile>
     <ClCompile Include="src\Granola\Log.cpp">
-      <Filter>Granola</Filter>
+      <Filter>src\Granola</Filter>
     </ClCompile>
-    <ClCompile Include="src\grlpch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>src\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\grlpch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
     <None Include="ClassDiagram.cd" />
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

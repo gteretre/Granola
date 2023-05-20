@@ -1,3 +1,4 @@
+-- Granola premake file
 workspace "Granola"
 	architecture "x64"
 
@@ -9,6 +10,14 @@ workspace "Granola"
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+-- Include OpenGL, GLFW
+IncludeDir = {}
+IncludeDir["GLFW"] = "Granola/vendor/GLFW/include"
+
+include "Granola/vendor/GLFW"
+
+-- Granola project
 project "Granola"
 	location "Granola"
 	kind "SharedLib"
@@ -21,21 +30,37 @@ project "Granola"
 
 	files
 	{
+		-- source files
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/cpp.hint",
+		"%{prj.name}/ClassDiagram.cd"
 	}
 
 	includedirs
 	{
+		-- source files
+		"%{prj.name}/src",
+		-- vendor
+		-- spdlog
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src"
+		-- GLFW
+		"%{prj.name}/vendor/GLFW/include",
+		"{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		--vendor
+		--GLFW
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
 		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "latest"
-
 		defines
 		{
 			"GRL_PLATFORM_WINDOWS",
@@ -48,7 +73,12 @@ project "Granola"
 		}
 
 	filter "configurations:Debug"
-		defines "GRL_DEBUG"
+		defines 
+		{
+			"GRL_DEBUG",
+			"GRL_ENABLE_ASSERTS",
+			"GRL_PROFILE",
+		}
 		symbols "On"
 
 	filter "configurations:Release"
@@ -63,7 +93,7 @@ project "Granola"
 		buildoptions "/MT"
 
 
-
+-- Sandbox project
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"

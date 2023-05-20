@@ -1,10 +1,11 @@
 ﻿/* Log.h */
 #pragma once
+#include "grlpch.h"
+#include "Core.h"
+
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 
-#include "grlpch.h"
-#include "Core.h"
 
 namespace Granola
 {

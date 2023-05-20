@@ -1,21 +1,31 @@
 ﻿#include "grlpch.h"
+#include <GL/gl.h>
+
 #include "App.h"
+
 #include "Log.h"
 #include "Events/ApplicationEvent.h"
 
 namespace Granola
 {
-	App::App() = default;
+	App::App()
+	{
+		m_Window = std::unique_ptr<Window>(Window::Create());
+	}
 
 	App::~App() = default;
 
 	void App::Run()
 	{
-		//TODO this is just a test event and should be removed
-		const WindowResizeEvent someTestEvent(1200, 720);
-		if (someTestEvent.IsInCategory(EventCategoryApplication))
-			GRL_INFO(EventCategoryApplication);
-		GRL_TRACE(someTestEvent);
+		GRL_CORE_INFO("Starting Granola Engine");
+		// TODO GLR_OPENGL_DEBUG; should be here
+		while (m_IsRunning)
+		{
+			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_Window->OnUpdate();
+		}
+		//TODO add GRL_OPENGL_DEBUG
 		while (true);
 	}
 }

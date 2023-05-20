@@ -26,7 +26,11 @@
 
 
 //---Platform Specific----------------
+#define GRL_PLATFORM_UNIX 0 // currently UNIX is not fully implemented
+
 #ifdef GRL_PLATFORM_WINDOWS
 #include <Windows.h>
+#elif GRL_PLATFORM_UNIX
+#include <unistd.h>
 #endif
 //------------------------------------

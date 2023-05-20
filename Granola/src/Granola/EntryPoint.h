@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 
 
 	const auto app = Granola::CreateApp();
-	Granola::App::Run();
+	app->Run();
 	__debugbreak();
 	delete app;
 }
