@@ -25,6 +25,11 @@
 //------------------------------------
 
 
+//---Granola Unchanged Headers--------
+#include "Granola/Log.h"
+//------------------------------------
+
+
 //---Platform Specific----------------
 #define GRL_PLATFORM_UNIX 0 // currently UNIX is not fully implemented
 
