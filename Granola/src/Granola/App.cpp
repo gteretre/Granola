@@ -1,6 +1,8 @@
 ﻿#include "grlpch.h"
 #include <GL/gl.h>
 
+#include <ranges>
+
 #include "App.h"
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
@@ -20,11 +22,29 @@ namespace Granola
 
 	App::~App() = default;
 
+	void App::PushLayer(Layer *layer)
+	{
+		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
+	}
+
+	void App::PushOverlay(Layer *overlay)
+	{
+		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
+	}
+
 	void App::OnEvent(Event &currentEvent)
 	{
 		EventDispatcher dispatcher(currentEvent);
 		dispatcher.Dispatch<WindowCloseEvent>(GRL_BIND_EVENT_FN(OnWindowClose));
-		GRL_CORE_TRACE("{0}", currentEvent);
+		//TODO dispatcher.Dispatch<WindowResizeEvent>(GRL_BIND_EVENT_FN(OnWindowResize));
+		for (const auto &it : std::ranges::reverse_view(m_LayerStack))
+		{
+			if (currentEvent.IsHandled())
+				break;
+			it->OnEvent(currentEvent); // TODO Memory leak here
+		}
 	}
 
 	void App::Run() const
@@ -36,11 +56,16 @@ namespace Granola
 			glClearColor(0.1f, 0.3f, 0.6f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 			m_Window->OnUpdate();
+
+			for (const auto layer : m_LayerStack)
+				layer->OnUpdate();
 		}
 	}
 
-	bool App::OnWindowClose(WindowCloseEvent &currentEvent)
+	bool App::OnWindowClose([[maybe_unused]] WindowCloseEvent &currentEvent)
 	{
+		_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG); // to hunt memory leaks
+		_CrtDumpMemoryLeaks(); // to hunt memory leaks
 		m_IsRunning = false;
 		return true;
 	}

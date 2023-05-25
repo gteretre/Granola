@@ -27,6 +27,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -83,9 +84,9 @@
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -161,6 +162,8 @@
     <ClInclude Include="src\Granola\Events\Event.h" />
     <ClInclude Include="src\Granola\Events\KeyEvent.h" />
     <ClInclude Include="src\Granola\Events\MouseEvent.h" />
+    <ClInclude Include="src\Granola\Layer.h" />
+    <ClInclude Include="src\Granola\LayerStack.h" />
     <ClInclude Include="src\Granola\Log.h" />
     <ClInclude Include="src\Granola\Window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -168,6 +171,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Granola\App.cpp" />
+    <ClCompile Include="src\Granola\Layer.cpp" />
+    <ClCompile Include="src\Granola\LayerStack.cpp" />
     <ClCompile Include="src\Granola\Log.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\grlpch.cpp">

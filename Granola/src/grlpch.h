@@ -13,6 +13,7 @@
 #include <functional>
 #include <iostream>
 #include <memory>
+#include <ranges>
 #include <utility>
 
 #include <array>

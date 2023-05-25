@@ -31,13 +31,13 @@ namespace Granola
 		virtual void Init(const WindowProps &props);
 		virtual void Shutdown();
 
-		GLFWwindow *m_Window;
+		GLFWwindow *m_Window{};
 
 		struct WindowData
 		{
 			std::string Title;
-			unsigned int Width, Height;
-			bool VSync;
+			unsigned int Width{}, Height{};
+			bool VSync{};
 			EventCallbackFn EventCallback;
 		};
 

@@ -28,6 +28,12 @@
 #define GRL_ASSERT(x, ...)
 #endif
 
+// to hunt memory leaks
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#include <stdlib.h>
+
+
 // to manage OpenGL logging
 // TODO make openGL logging
 #ifdef GRL_DEBUG

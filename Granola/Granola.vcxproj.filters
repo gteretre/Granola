@@ -42,6 +42,12 @@
     <ClInclude Include="src\Granola\Events\MouseEvent.h">
       <Filter>src\Granola\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Granola\Layer.h">
+      <Filter>src\Granola</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Granola\LayerStack.h">
+      <Filter>src\Granola</Filter>
+    </ClInclude>
     <ClInclude Include="src\Granola\Log.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
@@ -57,6 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Granola\App.cpp">
+      <Filter>src\Granola</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Granola\Layer.cpp">
+      <Filter>src\Granola</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Granola\LayerStack.cpp">
       <Filter>src\Granola</Filter>
     </ClCompile>
     <ClCompile Include="src\Granola\Log.cpp">

@@ -1,21 +1,35 @@
 #include <Granola.h>
-// TODO spdlog may not work (linker problem)
-// D:\Cpp\Granola\vendor\spdlog\include;
+
+class ExampleLayer final : public Granola::Layer
+{
+public:
+	ExampleLayer() : Layer("Example")
+	{
+	}
+
+	virtual void OnUpdate() override
+	{
+		GRL_INFO("ExampleLayer::Update");
+	}
+
+	virtual void OnEvent(Granola::Event &event) override
+	{
+		GRL_TRACE("{0}", event);
+	}
+};
 
 class Sandbox final : public Granola::App
 {
 public:
 	Sandbox()
 	{
+		PushLayer(new ExampleLayer());
 	}
 
-	virtual ~Sandbox() override
-	{
-	}
+	virtual ~Sandbox() override = default;
 };
 
 Granola::App *Granola::CreateApp()
 {
 	return new Sandbox();
-	// TODO use smart pointers
 }
