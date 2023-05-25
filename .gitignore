@@ -1,6 +1,8 @@
 #Directories
 bin/
 bin-int/
+Granola/vendor
+vendor
 
 #Files
 *.user
