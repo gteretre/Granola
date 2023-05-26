@@ -71,8 +71,7 @@ namespace Granola
 
 		[[nodiscard]] bool IsHandled() const { return m_Handled; }
 
-	protected:
-		bool m_Handled = false;
+		bool m_Handled = false; // TODO maybe just protected
 	};
 
 	class EventDispatcher

@@ -1,9 +1,12 @@
 ﻿#include "grlpch.h"
 #include "WindowsWindow.h"
 
+#include "Granola/Log.h" // TODO take it to core
 #include "Granola/Events/ApplicationEvent.h"
 #include "Granola/Events/KeyEvent.h"
 #include "Granola/Events/MouseEvent.h"
+
+#include <glad/glad.h>
 
 namespace Granola
 {
@@ -42,12 +45,15 @@ namespace Granola
 			{
 				GRL_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 			});
+
 			s_isGLFWInitialized = true;
 		}
 
 		m_Window = glfwCreateWindow(static_cast<int>(props.Width), static_cast<int>(props.Height), m_Data.Title.c_str(),
 									nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		const int status = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
+		GRL_CORE_ASSERT(status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -64,7 +70,7 @@ namespace Granola
 
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow *window)
 		{
-			const auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
+			auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
 				glfwGetWindowUserPointer(window));
 			WindowCloseEvent event;
 			EventCallback(event);
@@ -74,7 +80,7 @@ namespace Granola
 										const int action,
 										[[maybe_unused]] const int mods)
 		{
-			const auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
+			auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
 				glfwGetWindowUserPointer(window));
 
 			switch (action)
@@ -108,7 +114,7 @@ namespace Granola
 		glfwSetMouseButtonCallback(
 			m_Window, [](GLFWwindow *window, const int button, const int action, [[maybe_unused]] const int mods)
 			{
-				const auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
+				auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
 					glfwGetWindowUserPointer(window));
 				switch (action)
 				{
@@ -134,7 +140,7 @@ namespace Granola
 
 		glfwSetScrollCallback(m_Window, [](GLFWwindow *window, const double xOffset, const double yOffset)
 		{
-			const auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
+			auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
 				glfwGetWindowUserPointer(window));
 			MouseScrolledEvent event(static_cast<float>(xOffset), static_cast<float>(yOffset));
 			EventCallback(event);
@@ -142,7 +148,7 @@ namespace Granola
 
 		glfwSetCursorPosCallback(m_Window, [](GLFWwindow *window, const double xPos, const double yPos)
 		{
-			const auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
+			auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
 				glfwGetWindowUserPointer(window));
 			MouseMovedEvent event(static_cast<float>(xPos), static_cast<float>(yPos));
 			EventCallback(event);

@@ -1,4 +1,5 @@
 #include <Granola.h>
+#include <Granola/Log.h>
 
 class ExampleLayer final : public Granola::Layer
 {
@@ -9,12 +10,12 @@ public:
 
 	virtual void OnUpdate() override
 	{
-		GRL_INFO("ExampleLayer::Update");
+		//GRL_INFO("ExampleLayer::Update");
 	}
 
 	virtual void OnEvent(Granola::Event &event) override
 	{
-		GRL_TRACE("{0}", event);
+		//GRL_TRACE("{0}", event);
 	}
 };
 

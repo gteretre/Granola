@@ -14,8 +14,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include OpenGL, GLFW
 IncludeDir = {}
 IncludeDir["GLFW"] = "Granola/vendor/GLFW/include"
+IncludeDir["Glad"] = "Granola/vendor/Glad/include"
 
 include "Granola/vendor/GLFW"
+include "Granola/vendor/Glad"
 
 -- Granola project
 project "Granola"
@@ -46,7 +48,10 @@ project "Granola"
 		"%{prj.name}/vendor/spdlog/include",
 		-- GLFW
 		"%{prj.name}/vendor/GLFW/include",
-		"{IncludeDir.GLFW}"
+		"{IncludeDir.GLFW}",
+		-- Glad
+		"%{prj.name}/vendor/Glad/include",
+		"{IncludeDir.Glad}"
 	}
 
 	links
@@ -54,7 +59,9 @@ project "Granola"
 		--vendor
 		--GLFW
 		"GLFW",
-		"opengl32.lib"
+		"opengl32.lib",
+		--Glad
+		"Glad"
 	}
 
 	filter "system:windows"
@@ -64,7 +71,8 @@ project "Granola"
 		defines
 		{
 			"GRL_PLATFORM_WINDOWS",
-			"GRL_BUILD_DLL"
+			"GRL_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -91,6 +99,9 @@ project "Granola"
 
 	filter {"system:windows", "configurations:Release"}
 		buildoptions "/MT"
+
+	filter {"system:windows", "configurations:Debug"}
+		buildoptions "/external:W0 /fsanitize=address"
 
 
 -- Sandbox project
@@ -122,7 +133,6 @@ project "Sandbox"
 		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "latest"
-
 		defines
 		{
 			"GRL_PLATFORM_WINDOWS"

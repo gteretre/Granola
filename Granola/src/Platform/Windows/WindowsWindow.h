@@ -5,10 +5,10 @@
 // Copyright Michael Kowalski 2023
 
 #pragma once
-#include <GLFW/glfw3.h>
 
 #include "Granola/Window.h"
 
+#include <GLFW/glfw3.h>
 
 namespace Granola
 {

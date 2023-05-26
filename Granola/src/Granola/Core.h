@@ -35,9 +35,8 @@
 
 
 // to manage OpenGL logging
-// TODO make openGL logging
 #ifdef GRL_DEBUG
-#define GRL_OPENGL_DEBUG
+#define GRL_OPENGL_DEBUG glDebugMessageCallback(GRL::OpenGLDebugMessageCallback, nullptr); glEnable(GL_DEBUG_OUTPUT); glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 #else
 #define GRL_OPENGL_DEBUG
 #endif
