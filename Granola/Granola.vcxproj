@@ -26,7 +26,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>ClangCL</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -80,12 +80,11 @@
       <PrecompiledHeaderFile>grlpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRL_PLATFORM_WINDOWS;GRL_BUILD_DLL;GLFW_INCLUDE_NONE;GRL_DEBUG;GRL_ENABLE_ASSERTS;GRL_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalOptions>/external:W0 /INCREMENTAL:NO
- %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/external:W0 /fsanitize=address %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -105,7 +104,7 @@
       <PrecompiledHeaderFile>grlpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRL_PLATFORM_WINDOWS;GRL_BUILD_DLL;GLFW_INCLUDE_NONE;GRL_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -133,7 +132,7 @@
       <PrecompiledHeaderFile>grlpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRL_PLATFORM_WINDOWS;GRL_BUILD_DLL;GLFW_INCLUDE_NONE;GRL_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -163,22 +162,29 @@
     <ClInclude Include="src\Granola\Events\Event.h" />
     <ClInclude Include="src\Granola\Events\KeyEvent.h" />
     <ClInclude Include="src\Granola\Events\MouseEvent.h" />
+    <ClInclude Include="src\Granola\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Granola\Layer.h" />
     <ClInclude Include="src\Granola\LayerStack.h" />
     <ClInclude Include="src\Granola\Log.h" />
     <ClInclude Include="src\Granola\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\grlpch.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_opengl3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Granola\App.cpp" />
+    <ClCompile Include="src\Granola\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Granola\Layer.cpp" />
     <ClCompile Include="src\Granola\LayerStack.cpp" />
     <ClCompile Include="src\Granola\Log.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\grlpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -190,6 +196,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -11,13 +11,15 @@ workspace "Granola"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
--- Include OpenGL, GLFW
+-- Include OpenGL, GLFW, Glad and ImGui
 IncludeDir = {}
 IncludeDir["GLFW"] = "Granola/vendor/GLFW/include"
 IncludeDir["Glad"] = "Granola/vendor/Glad/include"
+IncludeDir["ImGui"] = "Granola/vendor/imgui"
 
 include "Granola/vendor/GLFW"
 include "Granola/vendor/Glad"
+include "Granola/vendor/imgui"
 
 -- Granola project
 project "Granola"
@@ -51,7 +53,10 @@ project "Granola"
 		"{IncludeDir.GLFW}",
 		-- Glad
 		"%{prj.name}/vendor/Glad/include",
-		"{IncludeDir.Glad}"
+		"{IncludeDir.Glad}",
+		-- ImGui
+		"%{prj.name}/vendor/imgui",
+		"{IncludeDir.ImGui}"
 	}
 
 	links
@@ -61,7 +66,9 @@ project "Granola"
 		"GLFW",
 		"opengl32.lib",
 		--Glad
-		"Glad"
+		"Glad",
+		--ImGui
+		"ImGui"
 	}
 
 	filter "system:windows"

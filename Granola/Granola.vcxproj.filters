@@ -60,6 +60,10 @@
     <ClInclude Include="src\grlpch.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Granola\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3_loader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Granola\App.cpp">
@@ -80,6 +84,9 @@
     <ClCompile Include="src\grlpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Granola\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -39,7 +39,7 @@ namespace Granola
 		GRL_CORE_TRACE("{0}", currentEvent);
 		EventDispatcher dispatcher(currentEvent);
 		dispatcher.Dispatch<WindowCloseEvent>(GRL_BIND_EVENT_FN(OnWindowClose));
-		//TODO dispatcher.Dispatch<WindowResizeEvent>(GRL_BIND_EVENT_FN(OnWindowResize));
+		// TODO dispatcher.Dispatch<WindowResizeEvent>(GRL_BIND_EVENT_FN(OnWindowResize));
 		for (const auto &it : std::ranges::reverse_view(m_LayerStack))
 		{
 			if (currentEvent.IsHandled())
