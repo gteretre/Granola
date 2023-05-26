@@ -7,3 +7,6 @@
 [submodule "Granola/vendor/spdlog"]
 	path = Granola/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Granola/vendor/imgui"]
+	path = Granola/vendor/imgui
+	url = https://github.com/ocornut/imgui
