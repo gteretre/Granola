@@ -4,10 +4,11 @@
 // 
 // Copyright Michael Kowalski 2023
 #include "Granola/Layer.h"
+#include "Platform/OpenGL/ImGuiOpenGLRenderer.h"
 #pragma once
 namespace Granola
 {
-	class ImGuiLayer : public Layer
+	class GRANOLA_API ImGuiLayer final : public Layer
 	{
 	public:
 		ImGuiLayer();
@@ -19,5 +20,6 @@ namespace Granola
 		virtual void OnDetach() override;
 
 	private:
+		float m_Time = 0.0f;
 	};
 }

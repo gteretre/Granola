@@ -8,9 +8,18 @@
 #include <spdlog/spdlog.h>
 #pragma warning(pop)
 
-
 namespace Granola
 {
+#define RESET "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[38;2;47;131;140m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+#define WHITE   "\033[37m"
+#define GREY    "\033[38;2;121;131;121m"
+
 	class GRANOLA_API Log
 	{
 	public:
@@ -18,7 +27,7 @@ namespace Granola
 		{
 		}
 
-		// TODO make it threadsafe, use mutex, if the same command multiple times create counter eg Event bla bla (3)
+		// TODO make it thread safe, use mutex, if the same command multiple times create counter eg Event bla bla (3)
 		template <typename... Args>
 		class GetCoreLogger
 		{
@@ -26,15 +35,13 @@ namespace Granola
 			template <typename... TraceArgs>
 			static void trace(TraceArgs &&... args)
 			{
-				std::cout << "[TRACE]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
+				tell(BLUE, "TRACE", std::forward<TraceArgs>(args)...);
 			}
 
 			template <typename... TraceArgs>
 			static void info(TraceArgs &&... args)
 			{
-				std::cout << "[INFO]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
+				tell(GREY, "INFO", std::forward<TraceArgs>(args)...);
 			}
 
 			template <typename... TraceArgs>
@@ -98,21 +105,20 @@ namespace Granola
 				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
 			}
 		};
+
+	private:
+		template <typename... Args>
+		static void tell(const std::string &&color, const std::string &&type, Args &&... args)
+		{
+			static std::mutex m_mutex;
+			std::scoped_lock lock(m_mutex);
+			std::cout << color << '[' << type << "]: ";
+			((std::cout << std::forward<Args>(args) << " "), ...);
+			std::cout << RESET << '\n';
+		}
 	};
 
 	// TODO repair spdlog or get rid of it; make possibility to toggle mine own log and spdlog
-	/*class GRANOLA_API Logspd
-	{
-	public:
-		static void Init();
-
-		static std::shared_ptr<spdlog::logger> &GetCoreLogger() { return s_CoreLogger; }
-		static std::shared_ptr<spdlog::logger> &GetClientLogger() { return s_ClientLogger; }
-
-	private:
-		static std::shared_ptr<spdlog::logger> s_CoreLogger;
-		static std::shared_ptr<spdlog::logger> s_ClientLogger;
-	};*/
 }
 
 //TODO layer update log

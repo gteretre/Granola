@@ -11,7 +11,7 @@
 
 namespace Granola
 {
-	class GRANOLA_API Layer
+	class GRANOLA_API Layer // TODO declspec may be unnecessary here
 	{
 	public:
 		explicit Layer(std::string debugName = "Layer");

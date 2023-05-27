@@ -26,7 +26,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -54,11 +54,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
     <OutDir>..\bin\Debug-windows-x86_64\Granola\</OutDir>
     <IntDir>..\bin-int\Debug-windows-x86_64\Granola\</IntDir>
     <TargetName>Granola</TargetName>
     <TargetExt>.dll</TargetExt>
+    <IncludePath>$(LLVMInstallDir)\lib\clang\$(LLVMToolsVersion)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -80,11 +81,11 @@
       <PrecompiledHeaderFile>grlpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRL_PLATFORM_WINDOWS;GRL_BUILD_DLL;GLFW_INCLUDE_NONE;GRL_DEBUG;GRL_ENABLE_ASSERTS;GRL_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Cpp\Granola\Granola\vendor\imgui;src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/external:W0 /fsanitize=address %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalOptions>/external:W0 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -93,6 +94,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>..\bin\Debug-windows-x86_64\Granola\Granola.lib</ImportLibrary>
+      <AdditionalLibraryDirectories>D:\Cpp\Granola\Granola\vendor\imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST ..\bin\Debug-windows-x86_64\Granola\Granola.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Granola\Granola.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Granola\Granola.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
@@ -167,11 +169,9 @@
     <ClInclude Include="src\Granola\LayerStack.h" />
     <ClInclude Include="src\Granola\Log.h" />
     <ClInclude Include="src\Granola\Window.h" />
-    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
-    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\grlpch.h" />
-    <ClInclude Include="vendor\imgui\backends\imgui_impl_opengl3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Granola\App.cpp" />
@@ -179,12 +179,12 @@
     <ClCompile Include="src\Granola\Layer.cpp" />
     <ClCompile Include="src\Granola\LayerStack.cpp" />
     <ClCompile Include="src\Granola\Log.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\dummy.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\grlpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

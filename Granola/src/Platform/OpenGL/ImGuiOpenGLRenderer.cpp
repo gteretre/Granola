@@ -98,15 +98,12 @@
 //  ES 3.0    300       "#version 300 es"   = WebGL 2.0
 //----------------------------------------
 #include "grlpch.h"
-#include "glad/glad.h"
 
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "imgui_impl_opengl3.h"
-#include <stdio.h>
-#include "imgui.h"
+#include "ImGuiOpenGLRenderer.h"
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>     // intptr_t
 #else
@@ -159,8 +156,8 @@
 // - You may need to regenerate imgui_impl_opengl3_loader.h to add new symbols. See https://github.com/dearimgui/gl3w_stripped
 // - You can temporarily use an unstripped version. See https://github.com/dearimgui/gl3w_stripped/releases
 // Changes to this backend using new APIs should be accompanied by a regenerated stripped loader version.
-#define IMGL3W_IMPL
-#include "imgui_impl_opengl3_loader.h"
+#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
+#include <glad/glad.h>
 #endif
 
 // Vertex arrays are not supported on ES2/WebGL1 unless Emscripten which uses an extension

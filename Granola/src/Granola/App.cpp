@@ -14,8 +14,11 @@ namespace Granola
 {
 #define GRL_BIND_EVENT_FN(fn) [this](auto&&... args) { return fn(std::forward<decltype(args)>(args)...); }
 
+	App *App::s_Instance = nullptr;
+
 	App::App()
 	{
+		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(GRL_BIND_EVENT_FN(OnEvent));
 	}
@@ -62,9 +65,9 @@ namespace Granola
 			if (const GLenum error = glGetError(); error != GL_NO_ERROR)
 				GRL_CORE_ERROR("OpenGL Error: {0}", error);
 
-			m_Window->OnUpdate();
 			for (const auto layer : m_LayerStack)
 				layer->OnUpdate();
+			m_Window->OnUpdate();
 		}
 	}
 

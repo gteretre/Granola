@@ -12,6 +12,7 @@
 #include <chrono>
 #include <cstdio>
 #include <functional>
+#include <future>
 #include <iostream>
 #include <memory>
 #include <mutex>
