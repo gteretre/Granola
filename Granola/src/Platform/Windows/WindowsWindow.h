@@ -27,6 +27,9 @@ namespace Granola
 		virtual void SetVSync(bool enabled) override;
 		[[nodiscard]] virtual bool IsVSync() const override;
 
+		// Experimental
+		static void openNewTerminalWindow();
+
 	private:
 		virtual void Init(const WindowProps &props);
 		virtual void Shutdown();

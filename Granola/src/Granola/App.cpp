@@ -1,8 +1,6 @@
 ﻿#include "grlpch.h"
 #include <glad/glad.h>
 
-#include <ranges>
-
 #include "App.h"
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
@@ -12,8 +10,6 @@
 
 namespace Granola
 {
-#define GRL_BIND_EVENT_FN(fn) [this](auto&&... args) { return fn(std::forward<decltype(args)>(args)...); }
-
 	App *App::s_Instance = nullptr;
 
 	App::App()
@@ -55,15 +51,26 @@ namespace Granola
 	{
 		GRL_CORE_INFO("Starting Granola Engine");
 		std::vector<float> rgba = {0.1f, 0.3f, 0.0f, 1.0f};
+		bool isBlue = false;
 		while (m_IsRunning)
 		{
-			if (rgba[2] < 0.35f)
-				rgba[2] += 0.002f;
+			//---Just for fun--------------------------------------
+			if (rgba[2] > 0.35f)
+				isBlue = true;
+			else if (rgba[2] < 0.05f)
+				isBlue = false;
+			if (!isBlue)
+				rgba[2] += 0.001f;
+			else
+				rgba[2] -= 0.001f;
+			//------------------------------------------------------
+
 			glClearColor(rgba[0], rgba[1], rgba[2], rgba[3]);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			if (const GLenum error = glGetError(); error != GL_NO_ERROR)
 				GRL_CORE_ERROR("OpenGL Error: {0}", error);
+
 
 			for (const auto layer : m_LayerStack)
 				layer->OnUpdate();

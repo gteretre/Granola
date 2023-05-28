@@ -45,6 +45,23 @@ namespace Granola
 		int m_RepeatCount;
 	};
 
+	class GRANOLA_API KeyTypedEvent final : public KeyEvent
+	{
+	public:
+		explicit KeyTypedEvent(const int keycode) : KeyEvent(keycode)
+		{
+		}
+
+		[[nodiscard]] virtual std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped);
+	};
+
 	class GRANOLA_API KeyReleasedEvent final : public KeyEvent
 	{
 	public:

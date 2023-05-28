@@ -111,6 +111,14 @@ namespace Granola
 			}
 		});
 
+		glfwSetCharCallback(m_Window, [](GLFWwindow *window, const unsigned int keycode)
+		{
+			auto &[Title, Width, Height, VSync, EventCallback] = *static_cast<WindowData*>(
+				glfwGetWindowUserPointer(window));
+			KeyTypedEvent event(static_cast<int>(keycode));
+			EventCallback(event);
+		});
+
 		glfwSetMouseButtonCallback(
 			m_Window, [](GLFWwindow *window, const int button, const int action, [[maybe_unused]] const int mods)
 			{
@@ -179,5 +187,23 @@ namespace Granola
 	bool WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
+	}
+
+	void WindowsWindow::openNewTerminalWindow()
+	{
+		STARTUPINFO si;
+		PROCESS_INFORMATION pi;
+		ZeroMemory(&si, sizeof(STARTUPINFO));
+		si.cb = sizeof(STARTUPINFO);
+		ZeroMemory(&pi, sizeof(PROCESS_INFORMATION));
+
+		// Modify the command below according to your preferred terminal program
+
+		if (const auto command = "cmd.exe"; !CreateProcess(nullptr, LPWSTR(command), nullptr, nullptr,
+														   FALSE, 0, nullptr, nullptr, &si, &pi))
+			std::cerr << "Failed to create new terminal window" << std::endl;
+
+		CloseHandle(pi.hProcess);
+		CloseHandle(pi.hThread);
 	}
 }

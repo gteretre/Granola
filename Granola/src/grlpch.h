@@ -21,6 +21,8 @@
 
 #include <array>
 #include <fstream>
+#include <map>
+#include <ranges>
 #include <sstream>
 #include <string>
 #include <unordered_map>
@@ -41,5 +43,16 @@
 #include <Windows.h>
 #elif GRL_PLATFORM_UNIX
 #include <unistd.h>
+#include <signal.h>
+#endif
+//------------------------------------
+
+
+//---Error Handling for external libs-
+#ifdef HZ_PLATFORM_WINDOWS
+#ifndef NOMINMAX
+		// See github.com/skypjack/entt/wiki/Frequently-Asked-Questions#warning-c4003-the-min-the-max-and-the-macro
+		#define NOMINMAX
+#endif
 #endif
 //------------------------------------

@@ -15,12 +15,10 @@ public:
 
 	virtual void OnUpdate() override
 	{
-		//GRL_INFO("ExampleLayer::Update");
 	}
 
 	virtual void OnEvent(Granola::Event &event) override
 	{
-		//GRL_TRACE("{0}", event);
 	}
 };
 

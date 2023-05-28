@@ -10,14 +10,14 @@
 
 namespace Granola
 {
-#define RESET "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[38;2;47;131;140m"
-#define MAGENTA "\033[35m"
+#define RESET   "\033[0m"
+#define RED     "\033[38;2;160;47;31m"
+#define GREEN   "\033[38;2;87;102;43m"
+#define YELLOW  "\033[38;2;185;163;140m"
+#define BLUE    "\033[38;2;72;120;140m"
+#define MAGENTA "\033[38;2;161;88;151m"
 #define CYAN    "\033[36m"
-#define WHITE   "\033[37m"
+#define WHITE   "\033[38;2;250;250;250m"
 #define GREY    "\033[38;2;121;131;121m"
 
 	class GRANOLA_API Log
@@ -41,68 +41,25 @@ namespace Granola
 			template <typename... TraceArgs>
 			static void info(TraceArgs &&... args)
 			{
-				tell(GREY, "INFO", std::forward<TraceArgs>(args)...);
+				tell(GREEN, "INFO", std::forward<TraceArgs>(args)...);
 			}
 
 			template <typename... TraceArgs>
 			static void warn(TraceArgs &&... args)
 			{
-				std::cout << "[WARNING]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
+				tell(YELLOW, "WARNING", std::forward<TraceArgs>(args)...);
 			}
 
 			template <typename... TraceArgs>
 			static void error(TraceArgs &&... args)
 			{
-				std::cout << "[ERROR]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
+				tell(RED, "WARNING", std::forward<TraceArgs>(args)...);
 			}
 
 			template <typename... TraceArgs>
 			static void critical(TraceArgs &&... args)
 			{
-				std::cout << "[FATAL]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
-			}
-		};
-
-		template <typename... Args>
-		class GetClientLogger
-		{
-		public:
-			template <typename... TraceArgs>
-			static void trace(TraceArgs &&... args)
-			{
-				std::cout << "[TRACE]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
-			}
-
-			template <typename... TraceArgs>
-			static void info(TraceArgs &&... args)
-			{
-				std::cout << "[INFO]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
-			}
-
-			template <typename... TraceArgs>
-			static void warn(TraceArgs &&... args)
-			{
-				std::cout << "[WARNING]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
-			}
-
-			template <typename... TraceArgs>
-			static void error(TraceArgs &&... args)
-			{
-				std::cout << "[ERROR]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
-			}
-
-			template <typename... TraceArgs>
-			static void critical(TraceArgs &&... args)
-			{
-				std::cout << "[FATAL]: ";
-				[[maybe_unused]] const int table[] = {0, ((std::cout << std::forward<TraceArgs>(args) << "\n"), 0)...};
+				tell(MAGENTA, "WARNING", std::forward<TraceArgs>(args)...);
 			}
 		};
 
@@ -112,7 +69,11 @@ namespace Granola
 		{
 			static std::mutex m_mutex;
 			std::scoped_lock lock(m_mutex);
-			std::cout << color << '[' << type << "]: ";
+
+			const auto now = std::chrono::system_clock::now();
+			const std::time_t time = std::chrono::system_clock::to_time_t(now);
+
+			std::cout << color << '[' << std::put_time(std::localtime(&time), "%T") << "] " << '[' << type << "]: ";
 			((std::cout << std::forward<Args>(args) << " "), ...);
 			std::cout << RESET << '\n';
 		}
@@ -156,11 +117,11 @@ namespace Granola
 
 // Client Log Macros
 #ifdef GRL_LOGGING
-#define GRL_TRACE(...) ::Granola::Log::GetClientLogger<>::trace(__VA_ARGS__)
-#define GRL_INFO(...)  ::Granola::Log::GetClientLogger<>::info(__VA_ARGS__)
-#define GRL_WARN(...)  ::Granola::Log::GetClientLogger<>::warn(__VA_ARGS__)
-#define GRL_ERROR(...) ::Granola::Log::GetClientLogger<>::error(__VA_ARGS__)
-#define GRL_FATAL(...) ::Granola::Log::GetClientLogger<>::critical(__VA_ARGS__)
+#define GRL_TRACE(...) ::Granola::Log::GetCoreLogger<>::trace(__VA_ARGS__)
+#define GRL_INFO(...)  ::Granola::Log::GetCoreLogger<>::info(__VA_ARGS__)
+#define GRL_WARN(...)  ::Granola::Log::GetCoreLogger<>::warn(__VA_ARGS__)
+#define GRL_ERROR(...) ::Granola::Log::GetCoreLogger<>::error(__VA_ARGS__)
+#define GRL_FATAL(...) ::Granola::Log::GetCoreLogger<>::critical(__VA_ARGS__)
 #define GRL_CRITICAL GRL_FATAL
 #else
 #define GRL_TRACE(...)

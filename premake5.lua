@@ -1,7 +1,10 @@
 -- Granola premake file
 workspace "Granola"
 	architecture "x64"
-
+	--startupproject "Sandbox"
+	-- Generate the CMake file
+	--cmakefile "CMakeLists.txt"
+	
 	configurations
 	{
 		"Debug",
@@ -17,15 +20,19 @@ IncludeDir["GLFW"] = "Granola/vendor/GLFW/include"
 IncludeDir["Glad"] = "Granola/vendor/Glad/include"
 IncludeDir["ImGui"] = "Granola/vendor/imgui"
 
-include "Granola/vendor/GLFW"
-include "Granola/vendor/Glad"
-include "Granola/vendor/imgui"
+group "Dependencies"
+	include "Granola/vendor/GLFW"
+	include "Granola/vendor/Glad"
+	include "Granola/vendor/imgui"
+group ""
 
 -- Granola project
 project "Granola"
 	location "Granola"
 	kind "SharedLib"
 	language "C++"
+staticruntime "off"
+
 	targetdir ("bin/" .. outputdir ..  "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir ..  "/%{prj.name}")
 
@@ -73,7 +80,6 @@ project "Granola"
 
 	filter "system:windows"
 		cppdialect "C++20"
-		staticruntime "On"
 		systemversion "latest"
 		defines
 		{
@@ -84,7 +90,9 @@ project "Granola"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			-- copy granola.dll to Sandbox/bin/$(Configuration)/Sandbox or create new folder
+			-- solved by just splitting path
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"
@@ -94,28 +102,27 @@ project "Granola"
 			"GRL_ENABLE_ASSERTS",
 			"GRL_PROFILE",
 		}
+		runtime "Debug"
 		symbols "On"
+		buildoptions "/external:W0"
 
 	filter "configurations:Release"
 		defines "GRL_RELEASE"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "GRL_DIST"
+		runtime "Release"
 		optimize "On"
-
-	filter {"system:windows", "configurations:Release"}
-		buildoptions "/MT"
-
-	filter {"system:windows", "configurations:Debug"}
-		buildoptions "/external:W0 /fsanitize=address"
-
 
 -- Sandbox project
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
+
 	targetdir ("bin/" .. outputdir ..  "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir ..  "/%{prj.name}")
 	files
@@ -138,7 +145,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++20"
-		staticruntime "On"
 		systemversion "latest"
 		defines
 		{
@@ -147,16 +153,17 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "GRL_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
+		buildoptions "/external:W0"
 
 	filter "configurations:Release"
 		defines "GRL_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "GRL_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 

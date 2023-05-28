@@ -19,17 +19,14 @@ namespace Granola
 		WindowMoved,
 		// App Events
 		AppTick,
-		// 6
 		AppUpdate,
 		AppRender,
 		// Key Events
 		KeyPressed,
-		// 9
 		KeyReleased,
 		KeyTyped,
 		// Mouse Events
 		MouseButtonPressed,
-		// 12
 		MouseButtonReleased,
 		MouseMoved,
 		MouseScrolled
