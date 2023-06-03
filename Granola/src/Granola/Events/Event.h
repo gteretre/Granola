@@ -6,6 +6,12 @@
 
 #include "Granola/Core.h"
 
+#include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
+
 namespace Granola
 {
 	enum class EventType
@@ -96,8 +102,44 @@ namespace Granola
 		Event &m_Event;
 	};
 
+	//---Operator overloads---
 	inline std::ostream &operator<<(std::ostream &os, const Event &currentEvent)
 	{
 		return os << currentEvent.ToString();
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::vec2 &vec)
+	{
+		return os << "(" << vec.x << ", " << vec.y << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::vec3 &vec)
+	{
+		return os << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::vec4 &vec)
+	{
+		return os << "(" << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::mat4 &mat)
+	{
+		return os << "(" << mat[0] << ", " << mat[1] << ", " << mat[2] << ", " << mat[3] << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::mat3 &mat)
+	{
+		return os << "(" << mat[0] << ", " << mat[1] << ", " << mat[2] << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::mat2 &mat)
+	{
+		return os << "(" << mat[0] << ", " << mat[1] << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::quat &quat)
+	{
+		return os << "(" << quat.x << ", " << quat.y << ", " << quat.z << ", " << quat.w << ")";
 	}
 }

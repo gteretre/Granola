@@ -17,6 +17,7 @@
 #include <memory>
 #include <mutex>
 #include <ranges>
+#include <thread>
 #include <utility>
 
 #include <array>

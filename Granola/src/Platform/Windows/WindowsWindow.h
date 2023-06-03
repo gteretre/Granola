@@ -27,12 +27,13 @@ namespace Granola
 		virtual void SetVSync(bool enabled) override;
 		[[nodiscard]] virtual bool IsVSync() const override;
 
+		[[nodiscard]] virtual void *GetNativeWindow() const override { return m_Window; }
 		// Experimental
 		static void openNewTerminalWindow();
 
 	private:
-		virtual void Init(const WindowProps &props);
-		virtual void Shutdown();
+		void Init(const WindowProps &props);
+		void Shutdown();
 
 		GLFWwindow *m_Window{};
 

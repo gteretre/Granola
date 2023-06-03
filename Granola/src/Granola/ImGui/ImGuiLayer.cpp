@@ -1,6 +1,7 @@
 ﻿#include "grlpch.h"
 #include "ImGuiLayer.h"
 #include "Granola/App.h"
+#include "Granola/KeyCodes.h"
 #include "Platform/OpenGL/ImGuiOpenGLRenderer.h"
 
 #include <imgui.h>
@@ -21,37 +22,10 @@ namespace Granola
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
-
 		ImGuiIO &imGuiIO = ImGui::GetIO();
 
 		imGuiIO.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 		imGuiIO.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
-
-		//TODO: Set Granola key map for all keys
-		imGuiIO.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
-		imGuiIO.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
-		imGuiIO.KeyMap[ImGuiKey_RightArrow] = GLFW_KEY_RIGHT;
-		imGuiIO.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
-		imGuiIO.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
-		imGuiIO.KeyMap[ImGuiKey_PageUp] = GLFW_KEY_PAGE_UP;
-		imGuiIO.KeyMap[ImGuiKey_PageDown] = GLFW_KEY_PAGE_DOWN;
-		imGuiIO.KeyMap[ImGuiKey_Home] = GLFW_KEY_HOME;
-		imGuiIO.KeyMap[ImGuiKey_End] = GLFW_KEY_END;
-		imGuiIO.KeyMap[ImGuiKey_Insert] = GLFW_KEY_INSERT;
-		imGuiIO.KeyMap[ImGuiKey_Delete] = GLFW_KEY_DELETE;
-		imGuiIO.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
-		imGuiIO.KeyMap[ImGuiKey_Space] = GLFW_KEY_SPACE;
-		imGuiIO.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
-		imGuiIO.KeyMap[ImGuiKey_Escape] = GLFW_KEY_ESCAPE;
-		imGuiIO.KeyMap[ImGuiKey_KeyPadEnter] = GLFW_KEY_KP_ENTER;
-		imGuiIO.KeyMap[ImGuiKey_A] = GLFW_KEY_A;
-		imGuiIO.KeyMap[ImGuiKey_C] = GLFW_KEY_C;
-		imGuiIO.KeyMap[ImGuiKey_V] = GLFW_KEY_V;
-		imGuiIO.KeyMap[ImGuiKey_X] = GLFW_KEY_X;
-		imGuiIO.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
-		imGuiIO.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
-
-
 		ImGui_ImplOpenGL3_Init("#version 430");
 	}
 
@@ -128,10 +102,10 @@ namespace Granola
 		ImGuiIO &imGuiIO = ImGui::GetIO();
 		imGuiIO.KeysDown[keyEvent.GetKeyCode()] = true;
 
-		imGuiIO.KeyCtrl = imGuiIO.KeysDown[GLFW_KEY_LEFT_CONTROL] || imGuiIO.KeysDown[GLFW_KEY_RIGHT_CONTROL];
-		imGuiIO.KeyShift = imGuiIO.KeysDown[GLFW_KEY_LEFT_SHIFT] || imGuiIO.KeysDown[GLFW_KEY_RIGHT_SHIFT];
-		imGuiIO.KeyAlt = imGuiIO.KeysDown[GLFW_KEY_LEFT_ALT] || imGuiIO.KeysDown[GLFW_KEY_RIGHT_ALT];
-		imGuiIO.KeySuper = imGuiIO.KeysDown[GLFW_KEY_LEFT_SUPER] || imGuiIO.KeysDown[GLFW_KEY_RIGHT_SUPER];
+		imGuiIO.KeyCtrl = imGuiIO.KeysDown[GRL_KEY_LEFT_CONTROL] || imGuiIO.KeysDown[GRL_KEY_RIGHT_CONTROL];
+		imGuiIO.KeyShift = imGuiIO.KeysDown[GRL_KEY_LEFT_SHIFT] || imGuiIO.KeysDown[GRL_KEY_RIGHT_SHIFT];
+		imGuiIO.KeyAlt = imGuiIO.KeysDown[GRL_KEY_LEFT_ALT] || imGuiIO.KeysDown[GRL_KEY_RIGHT_ALT];
+		imGuiIO.KeySuper = imGuiIO.KeysDown[GRL_KEY_LEFT_SUPER] || imGuiIO.KeysDown[GRL_KEY_RIGHT_SUPER];
 
 		return false;
 	}
@@ -141,10 +115,10 @@ namespace Granola
 		ImGuiIO &imGuiIO = ImGui::GetIO();
 		imGuiIO.KeysDown[keyEvent.GetKeyCode()] = false;
 
-		imGuiIO.KeyCtrl = imGuiIO.KeysDown[GLFW_KEY_LEFT_CONTROL] || imGuiIO.KeysDown[GLFW_KEY_RIGHT_CONTROL];
-		imGuiIO.KeyShift = imGuiIO.KeysDown[GLFW_KEY_LEFT_SHIFT] || imGuiIO.KeysDown[GLFW_KEY_RIGHT_SHIFT];
-		imGuiIO.KeyAlt = imGuiIO.KeysDown[GLFW_KEY_LEFT_ALT] || imGuiIO.KeysDown[GLFW_KEY_RIGHT_ALT];
-		imGuiIO.KeySuper = imGuiIO.KeysDown[GLFW_KEY_LEFT_SUPER] || imGuiIO.KeysDown[GLFW_KEY_RIGHT_SUPER];
+		imGuiIO.KeyCtrl = imGuiIO.KeysDown[GRL_KEY_LEFT_CONTROL] || imGuiIO.KeysDown[GRL_KEY_RIGHT_CONTROL];
+		imGuiIO.KeyShift = imGuiIO.KeysDown[GRL_KEY_LEFT_SHIFT] || imGuiIO.KeysDown[GRL_KEY_RIGHT_SHIFT];
+		imGuiIO.KeyAlt = imGuiIO.KeysDown[GRL_KEY_LEFT_ALT] || imGuiIO.KeysDown[GRL_KEY_RIGHT_ALT];
+		imGuiIO.KeySuper = imGuiIO.KeysDown[GRL_KEY_LEFT_SUPER] || imGuiIO.KeysDown[GRL_KEY_RIGHT_SUPER];
 
 		return false;
 	}

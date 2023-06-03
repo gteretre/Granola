@@ -2,11 +2,14 @@
 #include <glad/glad.h>
 
 #include "App.h"
+#include "Input.h"
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
 #include "Events/Event.h"
 
+#include "Input.h"
 #include "Granola/Log.h"
+
 
 namespace Granola
 {
@@ -70,7 +73,6 @@ namespace Granola
 
 			if (const GLenum error = glGetError(); error != GL_NO_ERROR)
 				GRL_CORE_ERROR("OpenGL Error: {0}", error);
-
 
 			for (const auto layer : m_LayerStack)
 				layer->OnUpdate();

@@ -22,6 +22,9 @@
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Granola.h">
@@ -51,6 +54,12 @@
     <ClInclude Include="src\Granola\ImGui\ImGuiLayer.h">
       <Filter>src\Granola\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Granola\Input.h">
+      <Filter>src\Granola</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Granola\KeyCodes.h">
+      <Filter>src\Granola</Filter>
+    </ClInclude>
     <ClInclude Include="src\Granola\Layer.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
@@ -60,11 +69,17 @@
     <ClInclude Include="src\Granola\Log.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
+    <ClInclude Include="src\Granola\MouseButtonCodes.h">
+      <Filter>src\Granola</Filter>
+    </ClInclude>
     <ClInclude Include="src\Granola\Window.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
       <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>src\Platform\Windows</Filter>
@@ -95,15 +110,22 @@
     <ClCompile Include="src\Platform\OpenGL\dummy.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>src\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\grlpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Granola\ImGui\ImGuiBuild.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="cpp.hint" />
+    <None Include="vendor\glm">
+      <Filter>vendor</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -35,7 +35,7 @@ namespace Granola
 			template <typename... TraceArgs>
 			static void trace(TraceArgs &&... args)
 			{
-				tell(BLUE, "TRACE", std::forward<TraceArgs>(args)...);
+				tell(BLUE, "INFO", std::forward<TraceArgs>(args)...);
 			}
 
 			template <typename... TraceArgs>

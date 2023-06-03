@@ -19,6 +19,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Granola/vendor/GLFW/include"
 IncludeDir["Glad"] = "Granola/vendor/Glad/include"
 IncludeDir["ImGui"] = "Granola/vendor/imgui"
+IncludeDir["glm"] = "Granola/vendor/glm"
 
 group "Dependencies"
 	include "Granola/vendor/GLFW"
@@ -45,7 +46,9 @@ staticruntime "off"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/cpp.hint",
-		"%{prj.name}/ClassDiagram.cd"
+		"%{prj.name}/ClassDiagram.cd",
+		-- glm
+		"Granola/vendor/glm"
 	}
 
 	includedirs
@@ -63,7 +66,11 @@ staticruntime "off"
 		"{IncludeDir.Glad}",
 		-- ImGui
 		"%{prj.name}/vendor/imgui",
-		"{IncludeDir.ImGui}"
+		"{IncludeDir.ImGui}",
+		-- glm
+		"Granola/vendor/glm",
+		"{IncludeDir.glm}",
+		
 	}
 
 	links
@@ -127,15 +134,24 @@ project "Sandbox"
 	objdir ("bin-int/" .. outputdir ..  "/%{prj.name}")
 	files
 	{
+		-- source files
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		-- glm
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
+		
 	}
 
 	includedirs
 	{
+		--source files
 		"Granola/vendor/spdlog/include",
 		"Granola/src",
-		"%{prj.name}/src"
+		"%{prj.name}/src",
+		-- glm
+		"Granola/vendor/glm",
+		"{IncludeDir.glm}"
 	}
 
 	links

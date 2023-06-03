@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>grlpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRL_PLATFORM_WINDOWS;GRL_BUILD_DLL;GLFW_INCLUDE_NONE;GRL_DEBUG;GRL_ENABLE_ASSERTS;GRL_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};vendor\glm;..\{IncludeDir.glm};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -104,7 +104,7 @@
       <PrecompiledHeaderFile>grlpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRL_PLATFORM_WINDOWS;GRL_BUILD_DLL;GLFW_INCLUDE_NONE;GRL_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};vendor\glm;..\{IncludeDir.glm};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -131,7 +131,7 @@
       <PrecompiledHeaderFile>grlpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRL_PLATFORM_WINDOWS;GRL_BUILD_DLL;GLFW_INCLUDE_NONE;GRL_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;..\{IncludeDir.GLFW};vendor\Glad\include;..\{IncludeDir.Glad};vendor\imgui;..\{IncludeDir.ImGui};vendor\glm;..\{IncludeDir.glm};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -162,22 +162,28 @@
     <ClInclude Include="src\Granola\Events\KeyEvent.h" />
     <ClInclude Include="src\Granola\Events\MouseEvent.h" />
     <ClInclude Include="src\Granola\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Granola\Input.h" />
+    <ClInclude Include="src\Granola\KeyCodes.h" />
     <ClInclude Include="src\Granola\Layer.h" />
     <ClInclude Include="src\Granola\LayerStack.h" />
     <ClInclude Include="src\Granola\Log.h" />
+    <ClInclude Include="src\Granola\MouseButtonCodes.h" />
     <ClInclude Include="src\Granola\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\grlpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Granola\App.cpp" />
+    <ClCompile Include="src\Granola\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Granola\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Granola\Layer.cpp" />
     <ClCompile Include="src\Granola\LayerStack.cpp" />
     <ClCompile Include="src\Granola\Log.cpp" />
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\dummy.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\grlpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -186,6 +192,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="cpp.hint" />
+    <None Include="vendor\glm" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
