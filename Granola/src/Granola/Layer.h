@@ -34,6 +34,11 @@ namespace Granola
 			// temporary empty, to be implemented
 		}
 
+		virtual void OnImGuiRender()
+		{
+			// temporary empty, to be implemented
+		}
+
 		virtual void OnEvent(Event &event)
 		{
 			// temporary empty, to be implemented

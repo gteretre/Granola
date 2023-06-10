@@ -20,6 +20,9 @@ namespace Granola
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(GRL_BIND_EVENT_FN(OnEvent));
+
+		m_ImGuiLayer = new ImGuiLayer(); //std::make_unique<ImGuiLayer>();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	App::~App() = default;
@@ -68,6 +71,8 @@ namespace Granola
 				rgba[2] -= 0.001f;
 			//------------------------------------------------------
 
+
+			//---OpenGL Layer---------------------------------------
 			glClearColor(rgba[0], rgba[1], rgba[2], rgba[3]);
 			glClear(GL_COLOR_BUFFER_BIT);
 
@@ -76,6 +81,16 @@ namespace Granola
 
 			for (const auto layer : m_LayerStack)
 				layer->OnUpdate();
+			//------------------------------------------------------
+
+
+			//---ImGui Layer----------------------------------------
+			ImGuiLayer::Begin();
+			for (const auto layer : m_LayerStack)
+				layer->OnImGuiRender();
+			ImGuiLayer::End();
+			//------------------------------------------------------
+
 			m_Window->OnUpdate();
 		}
 	}

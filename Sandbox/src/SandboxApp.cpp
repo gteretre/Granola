@@ -56,7 +56,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Granola::ImGuiLayer());
 	}
 
 	virtual ~Sandbox() override = default;

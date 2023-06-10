@@ -4,7 +4,7 @@
 #include "Events/ApplicationEvent.h"
 #include "Events/Event.h"
 #include "Granola/LayerStack.h"
-
+#include "Granola/ImGui/ImGuiLayer.h"
 
 namespace Granola
 {
@@ -25,6 +25,7 @@ namespace Granola
 		bool OnWindowClose(WindowCloseEvent &currentEvent);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer *m_ImGuiLayer; //std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
 		bool m_IsRunning = true;
 		LayerStack m_LayerStack{};
 		static App *s_Instance;

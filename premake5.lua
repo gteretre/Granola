@@ -85,6 +85,8 @@ staticruntime "off"
 		"ImGui"
 	}
 
+	defines { "IMGUI_API=__declspec(dllexport)" }
+
 	filter "system:windows"
 		cppdialect "C++20"
 		systemversion "latest"
@@ -158,6 +160,8 @@ project "Sandbox"
 	{
 		"Granola"
 	}
+
+	defines { "IMGUI_API=__declspec(dllimport)" }
 
 	filter "system:windows"
 		cppdialect "C++20"

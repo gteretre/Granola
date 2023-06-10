@@ -75,9 +75,6 @@
     <ClInclude Include="src\Granola\Window.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
@@ -92,6 +89,9 @@
     <ClCompile Include="src\Granola\App.cpp">
       <Filter>src\Granola</Filter>
     </ClCompile>
+    <ClCompile Include="src\Granola\ImGui\ImGuiBuild.cpp">
+      <Filter>src\Granola\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\Granola\ImGui\ImGuiLayer.cpp">
       <Filter>src\Granola\ImGui</Filter>
     </ClCompile>
@@ -103,9 +103,6 @@
     </ClCompile>
     <ClCompile Include="src\Granola\Log.cpp">
       <Filter>src\Granola</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\dummy.cpp">
       <Filter>src\Platform\OpenGL</Filter>
@@ -119,7 +116,6 @@
     <ClCompile Include="src\grlpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Granola\ImGui\ImGuiBuild.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
