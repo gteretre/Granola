@@ -104,9 +104,6 @@
     <ClCompile Include="src\Granola\Log.cpp">
       <Filter>src\Granola</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\dummy.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>

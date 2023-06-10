@@ -25,7 +25,7 @@ namespace Granola
 	};
 
 	// depending on what platform it will be runned (Windows Window, MacOS Window, ...)
-	class GRANOLA_API Window
+	class  Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event &)>;

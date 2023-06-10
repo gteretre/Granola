@@ -10,7 +10,7 @@
 
 namespace Granola
 {
-	class GRANOLA_API Input
+	class  Input
 	{
 	public:
 		static bool IsKeyPressed(const int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }

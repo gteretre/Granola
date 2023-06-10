@@ -4,7 +4,7 @@ workspace "Granola"
 	--startupproject "Sandbox"
 	-- Generate the CMake file
 	--cmakefile "CMakeLists.txt"
-	
+
 	configurations
 	{
 		"Debug",
@@ -30,9 +30,10 @@ group ""
 -- Granola project
 project "Granola"
 	location "Granola"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-staticruntime "off"
+	cppdialect "C++20"
+staticruntime "on"
 
 	targetdir ("bin/" .. outputdir ..  "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir ..  "/%{prj.name}")
@@ -88,20 +89,12 @@ staticruntime "off"
 	defines { "IMGUI_API=__declspec(dllexport)" }
 
 	filter "system:windows"
-		cppdialect "C++20"
 		systemversion "latest"
 		defines
 		{
 			"GRL_PLATFORM_WINDOWS",
 			"GRL_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
-		}
-
-		postbuildcommands
-		{
-			-- copy granola.dll to Sandbox/bin/$(Configuration)/Sandbox or create new folder
-			-- solved by just splitting path
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"
@@ -112,25 +105,27 @@ staticruntime "off"
 			"GRL_PROFILE",
 		}
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 		buildoptions "/external:W0"
 
 	filter "configurations:Release"
 		defines "GRL_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
+		buildoptions "/W4"
 
 	filter "configurations:Dist"
 		defines "GRL_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 -- Sandbox project
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++20"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir ..  "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir ..  "/%{prj.name}")
@@ -142,7 +137,7 @@ project "Sandbox"
 		-- glm
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
-		
+	
 	}
 
 	includedirs
@@ -164,7 +159,6 @@ project "Sandbox"
 	defines { "IMGUI_API=__declspec(dllimport)" }
 
 	filter "system:windows"
-		cppdialect "C++20"
 		systemversion "latest"
 		defines
 		{
@@ -174,16 +168,16 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "GRL_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 		buildoptions "/external:W0"
 
 	filter "configurations:Release"
 		defines "GRL_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "GRL_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 

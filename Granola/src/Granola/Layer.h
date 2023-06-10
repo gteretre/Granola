@@ -11,7 +11,7 @@
 
 namespace Granola
 {
-	class GRANOLA_API Layer // TODO declspec may be unnecessary here
+	class Layer // TODO declspec may be unnecessary here
 	{
 	public:
 		explicit Layer(std::string debugName = "Layer");
@@ -39,7 +39,7 @@ namespace Granola
 			// temporary empty, to be implemented
 		}
 
-		virtual void OnEvent(Event &event)
+		virtual void OnEvent([[maybe_unused]] Event &event)
 		{
 			// temporary empty, to be implemented
 		}

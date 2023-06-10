@@ -14,8 +14,9 @@
 namespace Granola
 {
 	// OpenGL Log
-	void GLDebugMessageCallback(GLenum source, GLenum type, GLuint id, const GLenum severity, GLsizei length,
-								const GLchar *message, const void *userParam)
+	void GLDebugMessageCallback(GLenum source, GLenum type, GLuint id, const GLenum severity,
+								[[maybe_unused]] GLsizei length,
+								const GLchar *message, [[maybe_unused]] const void *userParam)
 	{
 		switch (severity)
 		{

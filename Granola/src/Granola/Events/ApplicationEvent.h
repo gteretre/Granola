@@ -9,7 +9,7 @@
 
 namespace Granola
 {
-	class GRANOLA_API WindowResizeEvent final : public Event
+	class  WindowResizeEvent final : public Event
 	{
 	public:
 		WindowResizeEvent(const unsigned int width, const unsigned int height) : m_Width(width), m_Height(height)
@@ -33,7 +33,7 @@ namespace Granola
 		unsigned int m_Width, m_Height;
 	};
 
-	class GRANOLA_API WindowCloseEvent final : public Event
+	class  WindowCloseEvent final : public Event
 	{
 	public:
 		WindowCloseEvent() = default;
@@ -42,7 +42,7 @@ namespace Granola
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GRANOLA_API AppTickEvent final : public Event
+	class  AppTickEvent final : public Event
 	{
 	public:
 		AppTickEvent() = default;
@@ -51,7 +51,7 @@ namespace Granola
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GRANOLA_API AppUpdateEvent final : public Event
+	class  AppUpdateEvent final : public Event
 	{
 		AppUpdateEvent() = default;
 
@@ -59,7 +59,7 @@ namespace Granola
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GRANOLA_API AppRenderEvent final : public Event
+	class  AppRenderEvent final : public Event
 	{
 		AppRenderEvent() = default;
 

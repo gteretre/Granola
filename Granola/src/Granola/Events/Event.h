@@ -54,7 +54,7 @@ namespace Granola
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class GRANOLA_API Event
+	class Event
 	{
 		friend class EventDispatcher;
 
@@ -74,7 +74,8 @@ namespace Granola
 
 		[[nodiscard]] bool IsHandled() const { return m_Handled; }
 
-		bool m_Handled = false; // TODO maybe just protected
+	protected:
+		bool m_Handled = false;
 	};
 
 	class EventDispatcher

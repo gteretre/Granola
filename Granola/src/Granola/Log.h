@@ -20,11 +20,12 @@ namespace Granola
 #define WHITE   "\033[38;2;250;250;250m"
 #define GREY    "\033[38;2;121;131;121m"
 
-	class GRANOLA_API Log
+	class Log
 	{
 	public:
 		static void Init()
 		{
+			std::cout << "Granola Engine Log\n";
 		}
 
 		// TODO make it thread safe, use mutex, if the same command multiple times create counter eg Event bla bla (3)
@@ -64,16 +65,26 @@ namespace Granola
 		};
 
 	private:
+		inline static std::mutex m_mutex{};
+
 		template <typename... Args>
 		static void tell(const std::string &&color, const std::string &&type, Args &&... args)
 		{
-			static std::mutex m_mutex;
+			// todo make it multithreaded, read about chrono to make it more efficient
 			std::scoped_lock lock(m_mutex);
 
 			const auto now = std::chrono::system_clock::now();
 			const std::time_t time = std::chrono::system_clock::to_time_t(now);
+			std::tm tm{};
+#ifdef _MSC_VER
+			if (localtime_s(&tm, &time))
+				throw std::runtime_error("Failed to get localtime");
+#else
+	if (localtime_r(&time, &tm));
+			throw std::runtime_error("Failed to get localtime");
+#endif
 
-			std::cout << color << '[' << std::put_time(std::localtime(&time), "%T") << "] " << '[' << type << "]: ";
+			std::cout << color << '[' << std::put_time(&tm, "%T") << "] " << '[' << type << "]: ";
 			((std::cout << std::forward<Args>(args) << " "), ...);
 			std::cout << RESET << '\n';
 		}

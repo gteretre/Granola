@@ -6,10 +6,11 @@
 #include <glm/vec4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-/* BUG access violation 0xC0000005 or 0x0000... (nullptr) means problems with GLFW or glad initialization check:
+/* access violation 0xC0000005 or 0x0000... (nullptr) means problems with GLFW or glad initialization check:
  * 1. Check status and success variables in WindowsWindow.cpp
  * 2. Check if gladLoadGLLoader is called after glfwMakeContextCurrent, glfwInit etc.
  * 3. Check if glad is initialized before any OpenGL call
+ * 6/10/23 !Fixed now
  */
 
 glm::mat4 camera(const float Translate, const glm::vec2 &Rotate)

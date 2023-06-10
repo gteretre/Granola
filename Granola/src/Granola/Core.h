@@ -6,22 +6,12 @@
 // platform windows
 #ifdef GRL_PLATFORM_WINDOWS
 #define GRL_BREAK() __debugbreak()
-#ifdef GRL_BUILD_DLL
-#define GRANOLA_API __declspec(dllexport)
-#else
-			#define GRANOLA_API __declspec(dllimport)
-#endif
 
 // platform linux
-
 #elif GRL_PLATFORM_LINUX
 #define GRL_BREAK() __builtin_trap()
-#ifdef GRL_BUILD_DLL
-		#define GRANOLA_API __attribute__((visibility("default")))
-#else
-		#define GRANOLA_API
-#endif
 
+// other platforms
 #else
 #error Currently only Windows (Linux is under devolopment) is supported!!!
 #endif
@@ -35,8 +25,8 @@
 
 // to manage logging
 #ifdef GRL_ENABLE_ASSERTS
-#define GRL_CORE_ASSERT(x, ...) { if(!(x)) { GRL_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#define GRL_ASSERT(x, ...) { if(!(x)) { GRL_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define GRL_CORE_ASSERT(x, ...) { if(!(x)) { GRL_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); GRL_BREAK(); } }
+#define GRL_ASSERT(x, ...) { if(!(x)) { GRL_ERROR("Assertion Failed: {0}", __VA_ARGS__); GRL_BREAK(); } }
 #else
 	#define GRL_CORE_ASSERT(x, ...)
 	#define GRL_ASSERT(x, ...)
@@ -65,7 +55,7 @@ glEnable(GL_DEBUG_OUTPUT); glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 #endif
 
 // to hunt memory leaks (Windows only!!!)
-// TODO add Linux support and make changes in src\Granola\EntryPoint.h and src\Granola\App.cpp
+// TODO add Linux support and make changes in src\Granola\EntryPoint.h and src\Granola\App.cpp for Linux
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #include <stdlib.h>

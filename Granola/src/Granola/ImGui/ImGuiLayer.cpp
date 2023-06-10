@@ -3,7 +3,7 @@
 #include "Granola/App.h"
 #include "Granola/KeyCodes.h"
 
-//BUG problems with linking imgui, some locations are hardcoded in files:
+//TODO problems with linking imgui, some locations are hardcoded in files:
 //D:\Cpp\Granola\Granola\vendor\imgui\backends\imgui_impl_glfw.cpp
 //D:\Cpp\Granola\Granola\vendor\imgui\backends\imgui_impl_opengl3.cpp
 //D:\Cpp\Granola\Granola\vendor\imgui\backends\imgui_impl_glfw.h

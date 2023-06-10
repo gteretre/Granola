@@ -10,7 +10,7 @@
 
 namespace Granola
 {
-	class GRANOLA_API ImGuiLayer final : public Layer
+	class ImGuiLayer final : public Layer
 	{
 	public:
 		ImGuiLayer();

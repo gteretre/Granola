@@ -8,7 +8,7 @@
 
 namespace Granola
 {
-	class GRANOLA_API App
+	class  App
 	{
 	public:
 		App();

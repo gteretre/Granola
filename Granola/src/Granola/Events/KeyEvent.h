@@ -9,7 +9,7 @@
 
 namespace Granola
 {
-	class GRANOLA_API KeyEvent : public Event
+	class  KeyEvent : public Event
 	{
 	public:
 		[[nodiscard]] int GetKeyCode() const { return m_KeyCode; }
@@ -23,7 +23,7 @@ namespace Granola
 		int m_KeyCode;
 	};
 
-	class GRANOLA_API KeyPressedEvent final : public KeyEvent
+	class  KeyPressedEvent final : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(const int keycode, const int repeatCount) : KeyEvent(keycode), m_RepeatCount(repeatCount)
@@ -45,7 +45,7 @@ namespace Granola
 		int m_RepeatCount;
 	};
 
-	class GRANOLA_API KeyTypedEvent final : public KeyEvent
+	class  KeyTypedEvent final : public KeyEvent
 	{
 	public:
 		explicit KeyTypedEvent(const int keycode) : KeyEvent(keycode)
@@ -62,7 +62,7 @@ namespace Granola
 		EVENT_CLASS_TYPE(KeyTyped);
 	};
 
-	class GRANOLA_API KeyReleasedEvent final : public KeyEvent
+	class  KeyReleasedEvent final : public KeyEvent
 	{
 	public:
 		explicit KeyReleasedEvent(const int keycode): KeyEvent(keycode)

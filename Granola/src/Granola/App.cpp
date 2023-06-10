@@ -15,13 +15,12 @@ namespace Granola
 {
 	App *App::s_Instance = nullptr;
 
-	App::App()
+	App::App() : m_ImGuiLayer(new ImGuiLayer()) // may be better to use unique_ptr in the future
 	{
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(GRL_BIND_EVENT_FN(OnEvent));
 
-		m_ImGuiLayer = new ImGuiLayer(); //std::make_unique<ImGuiLayer>();
 		PushOverlay(m_ImGuiLayer);
 	}
 

@@ -13,12 +13,14 @@
 #include <cstdio>
 #include <functional>
 #include <future>
+#include <iomanip>
 #include <iostream>
 #include <memory>
 #include <mutex>
 #include <ranges>
 #include <thread>
 #include <utility>
+
 
 #include <array>
 #include <fstream>
@@ -33,7 +35,7 @@
 
 
 //---Granola Unchanged Headers--------
-//#include "Granola/Log.h" TODO not yet finished
+#include "Granola/Log.h"
 //------------------------------------
 
 

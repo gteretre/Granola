@@ -9,7 +9,7 @@
 
 namespace Granola
 {
-	class GRANOLA_API MouseMovedEvent final : public Event
+	class MouseMovedEvent final : public Event
 	{
 	public:
 		MouseMovedEvent(const float x, const float y) : m_MouseX(x), m_MouseY(y)
@@ -33,7 +33,7 @@ namespace Granola
 		float m_MouseX, m_MouseY;
 	};
 
-	class GRANOLA_API MouseScrolledEvent final : public Event
+	class MouseScrolledEvent final : public Event
 	{
 	public:
 		MouseScrolledEvent(const float xOffset, const float yOffset) : m_XOffset(xOffset), m_YOffset(yOffset)
@@ -57,14 +57,14 @@ namespace Granola
 		float m_XOffset, m_YOffset;
 	};
 
-	class GRANOLA_API MouseButtonEvent : public Event
+	class MouseButtonEvent : public Event
 	{
 	public:
 		[[nodiscard]] int GetMouseButton() const { return m_Button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
-	protected :
+	protected:
 		explicit MouseButtonEvent(const int button) : m_Button(button)
 		{
 		}
@@ -72,7 +72,7 @@ namespace Granola
 		int m_Button;
 	};
 
-	class GRANOLA_API MouseButtonPressedEvent final : public MouseButtonEvent
+	class MouseButtonPressedEvent final : public MouseButtonEvent
 	{
 	public:
 		explicit MouseButtonPressedEvent(const int button) : MouseButtonEvent(button)
@@ -89,7 +89,7 @@ namespace Granola
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class GRANOLA_API MouseButtonReleasedEvent final : public MouseButtonEvent
+	class MouseButtonReleasedEvent final : public MouseButtonEvent
 	{
 	public:
 		explicit MouseButtonReleasedEvent(const int button) : MouseButtonEvent(button)
