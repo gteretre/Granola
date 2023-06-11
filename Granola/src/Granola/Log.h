@@ -3,9 +3,13 @@
 #include "grlpch.h"
 #include "Core.h"
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include "glm/gtx/string_cast.hpp"
+
 // ignore all spdlog warnings
 #pragma warning(push, 0)
 #include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 #pragma warning(pop)
 
 namespace Granola
@@ -19,7 +23,7 @@ namespace Granola
 #define CYAN    "\033[36m"
 #define WHITE   "\033[38;2;250;250;250m"
 #define GREY    "\033[38;2;121;131;121m"
-
+#pragma warning(disable : 4858) // until multithreading is made good
 	class Log
 	{
 	public:
@@ -28,7 +32,6 @@ namespace Granola
 			std::cout << "Granola Engine Log\n";
 		}
 
-		// TODO make it thread safe, use mutex, if the same command multiple times create counter eg Event bla bla (3)
 		template <typename... Args>
 		class GetCoreLogger
 		{
@@ -36,69 +39,92 @@ namespace Granola
 			template <typename... TraceArgs>
 			static void trace(TraceArgs &&... args)
 			{
-				tell(BLUE, "INFO", std::forward<TraceArgs>(args)...);
+				std::stringstream ss;
+				((ss << std::forward<TraceArgs>(args)), ...);
+				const std::string message = ss.str();
+				std::jthread(log,BLUE, "TRACE", message);
 			}
 
 			template <typename... TraceArgs>
 			static void info(TraceArgs &&... args)
 			{
-				tell(GREEN, "INFO", std::forward<TraceArgs>(args)...);
+				std::stringstream ss;
+				((ss << std::forward<TraceArgs>(args)), ...);
+				const std::string message = ss.str();
+				std::jthread(log,GREEN, "INFO", message);
 			}
 
 			template <typename... TraceArgs>
 			static void warn(TraceArgs &&... args)
 			{
-				tell(YELLOW, "WARNING", std::forward<TraceArgs>(args)...);
+				std::stringstream ss;
+				((ss << std::forward<TraceArgs>(args)), ...);
+				const std::string message = ss.str();
+				std::jthread(log,YELLOW, "WARNING", message);
 			}
 
 			template <typename... TraceArgs>
 			static void error(TraceArgs &&... args)
 			{
-				tell(RED, "WARNING", std::forward<TraceArgs>(args)...);
+				std::stringstream ss;
+				((ss << std::forward<TraceArgs>(args)), ...);
+				const std::string message = ss.str();
+				std::jthread(log,RED, "ERROR", message);
 			}
 
 			template <typename... TraceArgs>
 			static void critical(TraceArgs &&... args)
 			{
-				tell(MAGENTA, "WARNING", std::forward<TraceArgs>(args)...);
+				std::stringstream ss;
+				((ss << std::forward<TraceArgs>(args)), ...);
+				const std::string message = ss.str();
+				std::jthread(log,MAGENTA, "FATAL", message);
 			}
 		};
 
 	private:
 		inline static std::mutex m_mutex{};
-
-		template <typename... Args>
-		static void tell(const std::string &&color, const std::string &&type, Args &&... args)
-		{
-			// todo make it multithreaded, read about chrono to make it more efficient
-			std::scoped_lock lock(m_mutex);
-
-			const auto now = std::chrono::system_clock::now();
-			const std::time_t time = std::chrono::system_clock::to_time_t(now);
-			std::tm tm{};
-#ifdef _MSC_VER
-			if (localtime_s(&tm, &time))
-				throw std::runtime_error("Failed to get localtime");
-#else
-	if (localtime_r(&time, &tm));
-			throw std::runtime_error("Failed to get localtime");
-#endif
-
-			std::cout << color << '[' << std::put_time(&tm, "%T") << "] " << '[' << type << "]: ";
-			((std::cout << std::forward<Args>(args) << " "), ...);
-			std::cout << RESET << '\n';
-		}
+		static void log(const std::string &color, const std::string &type, const std::string &message);
 	};
 
-	// TODO repair spdlog or get rid of it; make possibility to toggle mine own log and spdlog
+	class Logspd
+	{
+	public:
+		static void Init();
+
+		static Ref<spdlog::logger> &GetCoreLogger() { return s_CoreLogger; }
+		static Ref<spdlog::logger> &GetClientLogger() { return s_ClientLogger; }
+
+	private:
+		static Ref<spdlog::logger> s_CoreLogger;
+		static Ref<spdlog::logger> s_ClientLogger;
+	};
 }
 
-//TODO layer update log
+
 #ifdef GRL_DEBUG
 #define GRL_LOGGING
 #endif
 
 //#define GRL_LOGGING_WITH_SPDLOG
+
+template <typename OStream, glm::length_t L, typename T, glm::qualifier Q>
+OStream &operator<<(OStream &os, const glm::vec<L, T, Q> &vector)
+{
+	return os << glm::to_string(vector);
+}
+
+template <typename OStream, glm::length_t C, glm::length_t R, typename T, glm::qualifier Q>
+OStream &operator<<(OStream &os, const glm::mat<C, R, T, Q> &matrix)
+{
+	return os << glm::to_string(matrix);
+}
+
+template <typename OStream, typename T, glm::qualifier Q>
+OStream &operator<<(OStream &os, glm::qua<T, Q> quaternion)
+{
+	return os << glm::to_string(quaternion);
+}
 
 // Core Log macros
 #ifdef GRL_LOGGING
@@ -128,12 +154,21 @@ namespace Granola
 
 // Client Log Macros
 #ifdef GRL_LOGGING
+#ifdef GRL_LOGGING_WITH_SPDLOG
+#define GRL_TRACE(...) ::Granola::Logspd::GetClientLogger()->trace(__VA_ARGS__)
+#define GRL_INFO(...)  ::Granola::Logspd::GetClientLogger()->info(__VA_ARGS__)
+#define GRL_WARN(...)  ::Granola::Logspd::GetClientLogger()->warn(__VA_ARGS__)
+#define GRL_ERROR(...) ::Granola::Logspd::GetClientLogger()->error(__VA_ARGS__)
+#define GRL_FATAL(...) ::Granola::Logspd::GetClientLogger()->critical(__VA_ARGS__)
+#define GRL_CRITICAL GRL_CORE_FATAL
+#else
 #define GRL_TRACE(...) ::Granola::Log::GetCoreLogger<>::trace(__VA_ARGS__)
 #define GRL_INFO(...)  ::Granola::Log::GetCoreLogger<>::info(__VA_ARGS__)
 #define GRL_WARN(...)  ::Granola::Log::GetCoreLogger<>::warn(__VA_ARGS__)
 #define GRL_ERROR(...) ::Granola::Log::GetCoreLogger<>::error(__VA_ARGS__)
 #define GRL_FATAL(...) ::Granola::Log::GetCoreLogger<>::critical(__VA_ARGS__)
 #define GRL_CRITICAL GRL_FATAL
+#endif
 #else
 #define GRL_TRACE(...)
 #define GRL_INFO(...)

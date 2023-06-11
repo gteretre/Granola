@@ -8,7 +8,7 @@
 
 namespace Granola
 {
-	class  App
+	class App
 	{
 	public:
 		App();
@@ -29,6 +29,10 @@ namespace Granola
 		bool m_IsRunning = true;
 		LayerStack m_LayerStack{};
 		static App *s_Instance;
+
+		unsigned int m_VertexArray{};
+		unsigned int m_VertexBuffer{};
+		unsigned int m_IndexBuffer{};
 	};
 
 	// To be defined in client

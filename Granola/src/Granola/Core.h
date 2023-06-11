@@ -2,6 +2,12 @@
 #include "grlpch.h"
 
 
+//---Temporary Solution For Warning---
+#pragma warning(disable : 4514)
+#pragma warning(disable : 4201)
+//-------------------------------------
+
+
 //---Platform Specific----------------
 // platform windows
 #ifdef GRL_PLATFORM_WINDOWS
@@ -59,6 +65,31 @@ glEnable(GL_DEBUG_OUTPUT); glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #include <stdlib.h>
+//------------------------------------
+
+
+//---In Namespace---------------------
+namespace Granola
+{
+	template <typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template <typename T, typename... Args>
+	constexpr Scope<T> CreateScope(Args &&... args)
+	{
+		return std::make_unique<T>(std::forward<Args>(args)...);
+	}
+
+	template <typename T>
+	using Ref = std::shared_ptr<T>;
+
+	template <typename T, typename... Args>
+	constexpr Ref<T> CreateRef(Args &&... args)
+	{
+		return std::make_shared<T>(std::forward<Args>(args)...);
+	}
+}
+
 //------------------------------------
 
 

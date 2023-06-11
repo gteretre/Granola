@@ -1,23 +1,67 @@
 ﻿/* Log.cpp */
 #include "grlpch.h"
+#include "Log.h"
 
 #include <glad/glad.h>
 #pragma warning(push, 0)
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
-#include "spdlog/fmt/ostr.h"
 #pragma warning(pop)
-
-#include "Log.h"
 
 
 namespace Granola
 {
+	void Log::log(const std::string &color, const std::string &type, const std::string &message)
+	{
+		std::scoped_lock lock(m_mutex);
+
+		const auto now = std::chrono::system_clock::now();
+		const std::time_t time = std::chrono::system_clock::to_time_t(now);
+		std::tm tm{};
+#ifdef _MSC_VER
+		if (localtime_s(&tm, &time))
+			throw std::runtime_error("Failed to get localtime");
+#else
+	if (localtime_r(&time, &tm));
+			throw std::runtime_error("Failed to get localtime");
+#endif
+		std::cout << color << '[' << std::put_time(&tm, "%T") << "] " << '[' << type << "]: " << message << RESET <<
+			'\n';
+	}
+
+#ifdef GRL_LOGGING_WITH_SPDLOG
+	Ref<spdlog::logger> Logspd::s_CoreLogger;
+	Ref<spdlog::logger> Logspd::s_ClientLogger;
+
+	void Logspd::Init()
+	{
+		std::vector<spdlog::sink_ptr> logSinks;
+		logSinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
+		logSinks.emplace_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>("Granola.log", true));
+
+		logSinks[0]->set_pattern("%^[%T] %n: %v%$");
+		logSinks[1]->set_pattern("[%T] [%l] %n: %v");
+
+		s_CoreLogger = std::make_shared<spdlog::logger>("GRANOLA", begin(logSinks), end(logSinks));
+		register_logger(s_CoreLogger);
+		s_CoreLogger->set_level(spdlog::level::trace);
+		s_CoreLogger->flush_on(spdlog::level::trace);
+
+		s_ClientLogger = std::make_shared<spdlog::logger>("APP", begin(logSinks), end(logSinks));
+		register_logger(s_ClientLogger);
+		s_ClientLogger->set_level(spdlog::level::trace);
+		s_ClientLogger->flush_on(spdlog::level::trace);
+	}
+#endif
+
 	// OpenGL Log
 	void GLDebugMessageCallback(GLenum source, GLenum type, GLuint id, const GLenum severity,
 								[[maybe_unused]] GLsizei length,
 								const GLchar *message, [[maybe_unused]] const void *userParam)
 	{
+		id = static_cast<int>(id);
+		source = static_cast<int>(source);
+		type = static_cast<int>(type);
 		switch (severity)
 		{
 		case GL_DEBUG_SEVERITY_HIGH:

@@ -5,7 +5,6 @@
 // Copyright Michael Kowalski 2023
 
 #pragma once
-#include "Granola/Core.h"
 #include "Granola/Events/Event.h"
 
 namespace Granola
@@ -25,7 +24,7 @@ namespace Granola
 	};
 
 	// depending on what platform it will be runned (Windows Window, MacOS Window, ...)
-	class  Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event &)>;
