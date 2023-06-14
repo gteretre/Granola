@@ -14,6 +14,39 @@ namespace Granola
 {
 	App *App::s_Instance = nullptr;
 
+	static GLenum ShaderDataTypeToOpenGLBaseType(const ShaderDataType type) // TODO temporary here; move to RendererAPI
+	{
+		switch (type)
+		{
+		case ShaderDataType::Float:
+		case ShaderDataType::Float2:
+		case ShaderDataType::Float3:
+		case ShaderDataType::Float4:
+		case ShaderDataType::Mat3:
+		case ShaderDataType::Mat4:
+			return GL_FLOAT;
+		case ShaderDataType::Int:
+		case ShaderDataType::Int2:
+		case ShaderDataType::Int3:
+		case ShaderDataType::Int4:
+			return GL_INT;
+		case ShaderDataType::Bool:
+			return GL_BOOL;
+		case ShaderDataType::None:
+			break;
+		}
+
+		GRL_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		return 0;
+	}
+
+	static constexpr glm::vec3 RGBtoFloats(const int r, const int g, const int b)
+	{
+		return {static_cast<float>(r) / 255.0f, static_cast<float>(g) / 255.0f, static_cast<float>(b) / 255.0f};
+	}
+
+	//static constexpr glm::vec3 HEXtoFloats(const long hex)
+
 	App::App() : m_ImGuiLayer(new ImGuiLayer()) // may be better to use unique_ptr in the future
 	{
 		//---Create App-----------------------------------
@@ -27,32 +60,55 @@ namespace Granola
 		glCreateVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
+		constexpr auto col1 = RGBtoFloats(87, 27, 43);
+		constexpr auto col2 = RGBtoFloats(17, 56, 56);
+		constexpr auto col3 = RGBtoFloats(30, 133, 100);
+		constexpr float a = 1.0f;
+
 		// anti-clockwise
-		constexpr float verticies[3 * 3] = {
-			-0.5f, -0.5f, 0.0f, // bottom left
-			0.5f, -0.5f, 0.0f, // bottom right
-			0.0f, 0.5f, 0.0f // top
+		const float verticies[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, col1.r, col1.g, col1.b, a, // bottom left
+			0.5f, -0.5f, 0.0f, col2.r, col2.g, col2.b, a, // bottom right
+			0.0f, 0.5f, 0.0f, col3.r, col3.g, col3.b, a // top
 		};
 
 		m_VertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
-		m_VertexBuffer->Bind();
+		const BufferLayout layout = {
+			{ShaderDataType::Float3, "a_Position"},
+			//{ShaderDataType::Float3, "a_Normal"},
+			{ShaderDataType::Float4, "a_Color"},
+		};
+		m_VertexBuffer->SetLayout(layout);
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		uint32_t index = 0;
+		for (const auto &element : m_VertexBuffer->GetLayout())
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index,
+								  static_cast<GLint>(element.GetComponentCount()),
+								  ShaderDataTypeToOpenGLBaseType(element.Type),
+								  element.Normalized ? GL_TRUE : GL_FALSE,
+								  static_cast<GLsizei>(layout.GetStride()),
+								  reinterpret_cast<const void*>(element.Offset));
+			++index;
+		}
 
 		constexpr uint32_t indicies[3] = {0, 1, 2};
 		m_IndexBuffer.reset(IndexBuffer::Create(indicies, std::size(indicies)));
-		m_IndexBuffer->Bind();
 
 		std::string vertexSrc = R"(
 			#version 450 core
 			
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+
 			out vec3 v_Position;
+			out vec4 v_Color;
 			
 			void main()
 			{
 				v_Position = a_Position;
+				v_Color = a_Color;
 				gl_Position = vec4(a_Position, 1.0);
 			}
 		)"; // prefix a_ for attribute
@@ -62,10 +118,12 @@ namespace Granola
 			
 			layout(location = 0) out vec4 o_Color;
 			in vec3 v_Position;
+			in vec4 v_Color;
 			
 			void main()
 			{
 				o_Color = vec4(v_Position+0.25, 1.0);
+				o_Color = v_Color;
 			}
 		)"; // prefix o_ for output
 
