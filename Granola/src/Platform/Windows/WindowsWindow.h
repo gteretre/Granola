@@ -29,8 +29,7 @@ namespace Granola
 		[[nodiscard]] virtual bool IsVSync() const override;
 
 		[[nodiscard]] virtual void *GetNativeWindow() const override { return m_Window; }
-		// Experimental
-		static void openNewTerminalWindow();
+		static void openNewTerminalWindow(); // Not implemented yet terminal inside app
 
 	private:
 		void Init(const WindowProps &props);

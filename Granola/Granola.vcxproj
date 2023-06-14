@@ -160,8 +160,12 @@
     <ClInclude Include="src\Granola\LayerStack.h" />
     <ClInclude Include="src\Granola\Log.h" />
     <ClInclude Include="src\Granola\MouseButtonCodes.h" />
+    <ClInclude Include="src\Granola\Renderer\Buffer.h" />
     <ClInclude Include="src\Granola\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Granola\Renderer\Renderer.h" />
+    <ClInclude Include="src\Granola\Renderer\Shader.h" />
     <ClInclude Include="src\Granola\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -174,6 +178,10 @@
     <ClCompile Include="src\Granola\Layer.cpp" />
     <ClCompile Include="src\Granola\LayerStack.cpp" />
     <ClCompile Include="src\Granola\Log.cpp" />
+    <ClCompile Include="src\Granola\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Granola\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Granola\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />

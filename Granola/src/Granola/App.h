@@ -6,6 +6,9 @@
 #include "Granola/LayerStack.h"
 #include "Granola/ImGui/ImGuiLayer.h"
 
+#include "Granola/Renderer/Buffer.h" // TODO remporary
+#include "Granola/Renderer/Shader.h" // TODO remporary
+
 namespace Granola
 {
 	class App
@@ -31,8 +34,10 @@ namespace Granola
 		static App *s_Instance;
 
 		unsigned int m_VertexArray{};
-		unsigned int m_VertexBuffer{};
-		unsigned int m_IndexBuffer{};
+
+		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 	};
 
 	// To be defined in client

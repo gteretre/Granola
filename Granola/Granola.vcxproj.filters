@@ -93,6 +93,10 @@
     <ClInclude Include="src\grlpch.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Granola\Renderer\Shader.h" />
+    <ClInclude Include="src\Granola\Renderer\Buffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Granola\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Granola\App.cpp">
@@ -125,6 +129,10 @@
     <ClCompile Include="src\grlpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Granola\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Granola\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Granola\Renderer\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

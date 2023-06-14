@@ -8,6 +8,8 @@
 
 #include <glad/glad.h>
 
+#include "Platform/OpenGL/OpenGLBuffer.h"
+
 namespace Granola
 {
 	App *App::s_Instance = nullptr;
@@ -22,16 +24,8 @@ namespace Granola
 
 
 		//---Rendering-------------------------------------
-
-		// Not Implemented Vertex Array
-		// Not Implemented Vertex Buffer
-		// Not Implemented Index Buffer
-
-		glGenVertexArrays(1, &m_VertexArray);
+		glCreateVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
-
-		glGenBuffers(1, &m_VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
 		// anti-clockwise
 		constexpr float verticies[3 * 3] = {
@@ -40,15 +34,42 @@ namespace Granola
 			0.0f, 0.5f, 0.0f // top
 		};
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
+		m_VertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
+		m_VertexBuffer->Bind();
+
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
-		glGenBuffers(1, &m_IndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+		constexpr uint32_t indicies[3] = {0, 1, 2};
+		m_IndexBuffer.reset(IndexBuffer::Create(indicies, std::size(indicies)));
+		m_IndexBuffer->Bind();
 
-		constexpr unsigned int indicies[3] = {0, 1, 2};
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
+		std::string vertexSrc = R"(
+			#version 450 core
+			
+			layout(location = 0) in vec3 a_Position;
+			out vec3 v_Position;
+			
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);
+			}
+		)"; // prefix a_ for attribute
+
+		std::string fragmentSrc = R"(
+			#version 450 core
+			
+			layout(location = 0) out vec4 o_Color;
+			in vec3 v_Position;
+			
+			void main()
+			{
+				o_Color = vec4(v_Position+0.25, 1.0);
+			}
+		)"; // prefix o_ for output
+
+		m_Shader = std::make_unique<Shader>(vertexSrc, fragmentSrc);
 	}
 
 	App::~App() = default;
@@ -104,8 +125,10 @@ namespace Granola
 			glClearColor(rgba[0], rgba[1], rgba[2], rgba[3]);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			m_Shader->Bind(); // as first step but don't need to be here
+
 			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			if (const GLenum error = glGetError(); error != GL_NO_ERROR)
 				GRL_CORE_ERROR("OpenGL Error: {0}", error);
