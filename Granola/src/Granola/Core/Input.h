@@ -6,8 +6,6 @@
 
 #pragma once
 
-#include "Granola/Core/Base.h"
-
 namespace Granola
 {
 	class Input

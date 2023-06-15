@@ -15,7 +15,7 @@
 
 // platform linux
 #elif GRL_PLATFORM_LINUX
-#define GRL_BREAK() __builtin_trap()
+#define GRL_BREAK() raise(SIGTRAP) // or __builtin_trap()
 
 // other platforms
 #else
@@ -63,8 +63,6 @@ glEnable(GL_DEBUG_OUTPUT); glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 // to hunt memory leaks (Windows only!!!)
 // TODO add Linux support and make changes in src\Granola\EntryPoint.h and src\Granola\App.cpp for Linux
 #define _CRTDBG_MAP_ALLOC
-#include <crtdbg.h>
-#include <stdlib.h>
 //------------------------------------
 
 

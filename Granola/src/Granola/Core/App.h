@@ -5,9 +5,8 @@
 #include "Granola/Events/ApplicationEvent.h"
 #include "Granola/Events/Event.h"
 #include "Granola/ImGui/ImGuiLayer.h"
-
-#include "Granola/Renderer/Buffer.h" // TODO remporary
-#include "Granola/Renderer/Shader.h" // TODO remporary
+#include "Granola/Renderer/Shader.h"
+#include "Granola/Renderer/VertexArray.h"
 
 namespace Granola
 {
@@ -33,11 +32,8 @@ namespace Granola
 		LayerStack m_LayerStack{};
 		static App *s_Instance;
 
-		unsigned int m_VertexArray{};
-
-		std::unique_ptr<Shader> m_Shader;
-		Ref<VertexBuffer> m_VertexBuffer;
-		Ref<IndexBuffer> m_IndexBuffer;
+		Ref<Shader> m_Shader;
+		Ref<VertexArray> m_VertexArray;
 	};
 
 	// To be defined in client

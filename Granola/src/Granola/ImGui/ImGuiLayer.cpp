@@ -1,7 +1,6 @@
 ﻿#include "grlpch.h"
 #include "ImGuiLayer.h"
 #include "Granola/Core/App.h"
-#include "Granola/Core/KeyCodes.h"
 
 //BUG problems with linking imgui, some locations are hardcoded in files:
 //D:\Cpp\Granola\Granola\vendor\imgui\backends\imgui_impl_glfw.cpp
@@ -13,7 +12,6 @@
 #include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Granola

@@ -2,10 +2,11 @@
 #include "VertexArray.h"
 
 #include "Renderer.h"
+#include "Platform/OpenGL/OpenGLVertexArray.h"
 
 namespace Granola
 {
-	VertexArray *VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetRendererAPI())
 		{
@@ -13,8 +14,7 @@ namespace Granola
 			GRL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
 		case Renderer::API::OpenGL:
-			//return CreateRef<OpenGLVertexArray>();
-			return nullptr;
+			return CreateRef<OpenGLVertexArray>();
 		}
 
 		GRL_CORE_ASSERT(false, "Unknown RendererAPI!");

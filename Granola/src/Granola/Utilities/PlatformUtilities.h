@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Hazel
+namespace Granola
 {
 	class FileDialogs
 	{

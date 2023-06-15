@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "Granola/Core/Base.h"
 #include "Granola/Events/Event.h"
 
 namespace Granola

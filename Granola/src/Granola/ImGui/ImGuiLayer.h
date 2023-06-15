@@ -5,7 +5,6 @@
 // Copyright Michael Kowalski 2023
 #pragma once
 #include "Granola/Core/Layer.h"
-#include "Granola/Events/Event.h"
 
 
 namespace Granola

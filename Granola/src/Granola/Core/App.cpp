@@ -1,6 +1,5 @@
 ﻿#include "grlpch.h"
 #include "App.h"
-#include "Input.h"
 #include "Window.h"
 #include "Granola/Core/Log.h"
 #include "Granola/Events/ApplicationEvent.h"
@@ -15,33 +14,6 @@ namespace Granola
 {
 	App *App::s_Instance = nullptr;
 
-	static GLenum ShaderDataTypeToOpenGLBaseType(const ShaderDataType type) // TODO temporary here; move to RendererAPI
-	{
-		switch (type)
-		{
-		case ShaderDataType::Float:
-		case ShaderDataType::Float2:
-		case ShaderDataType::Float3:
-		case ShaderDataType::Float4:
-		case ShaderDataType::Mat3:
-		case ShaderDataType::Mat4:
-			return GL_FLOAT;
-		case ShaderDataType::Int:
-		case ShaderDataType::Int2:
-		case ShaderDataType::Int3:
-		case ShaderDataType::Int4:
-			return GL_INT;
-		case ShaderDataType::Bool:
-			return GL_BOOL;
-		case ShaderDataType::None:
-			break;
-		}
-
-		GRL_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
-
-
 	App::App() : m_ImGuiLayer(new ImGuiLayer()) // may be better to use unique_ptr in the future
 	{
 		//---Create App-----------------------------------
@@ -50,47 +22,34 @@ namespace Granola
 		m_Window->SetEventCallback(GRL_BIND_EVENT_FN(OnEvent));
 		PushOverlay(m_ImGuiLayer);
 
-
 		//---Rendering-------------------------------------
-		glCreateVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
-
-		constexpr glm::vec3 col1 = ColorUtilities::RGBtoFloats(87, 27, 43);
-		constexpr glm::vec3 col2 = ColorUtilities::RGBtoFloats(17, 56, 56);
-		constexpr glm::vec3 col3 = ColorUtilities::RGBtoFloats(30, 133, 100);
+		constexpr glm::vec3 col1 = ColorUtilities::RGBtoFloats(120, 27, 73);
+		constexpr glm::vec3 col2 = ColorUtilities::RGBtoFloats(17, 76, 126);
+		constexpr glm::vec3 col3 = ColorUtilities::RGBtoFloats(30, 173, 120);
 		constexpr float a = 1.0f;
 
-		// anti-clockwise
-		const float verticies[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, col1.r, col1.g, col1.b, a, // bottom left
-			0.5f, -0.5f, 0.0f, col2.r, col2.g, col2.b, a, // bottom right
-			0.0f, 0.5f, 0.0f, col3.r, col3.g, col3.b, a // top
+		m_VertexArray = VertexArray::Create();
+		const float squareVericies[6 * 7] = {
+			-0.5f, -0.75f, 0.0f, col1.r, col1.g, col1.b, a,
+			0.5f, -0.5f, 0.0f, col2.r + 0.3f, col2.g - 0.2f, col2.b - 0.2f, a,
+			0.5f, -0.5f, 0.0f, col2.r, col2.g, col2.b, a,
+			0.0f, 0.75f, 0.0f, col3.r, col3.g, col3.b, a,
+			0.15f, 0.15f, 0.0f, col3.r - 0.2f, col3.g, col3.b + 0.5f, a,
+			-0.75f, 0.5f, 0.0f, col3.r + 0.4f, col3.g, col3.b, a
 		};
-
-		m_VertexBuffer = VertexBuffer::Create(verticies, sizeof(verticies));
-		//m_VertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
-		const BufferLayout layout = {
+		Ref<VertexBuffer> vertexBuffer;
+		vertexBuffer = VertexBuffer::Create(squareVericies, sizeof(squareVericies));
+		BufferLayout squareLayout = {
 			{ShaderDataType::Float3, "a_Position"},
-			//{ShaderDataType::Float3, "a_Normal"},
 			{ShaderDataType::Float4, "a_Color"},
 		};
-		m_VertexBuffer->SetLayout(layout);
+		vertexBuffer->SetLayout(squareLayout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
+		constexpr uint32_t squareIndicies[12] = {0, 1, 2, 2, 3, 0, 4, 4, 5, 1, 3, 5};
 
-		uint32_t index = 0;
-		for (const auto &element : m_VertexBuffer->GetLayout())
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
-								  static_cast<GLint>(element.GetComponentCount()),
-								  ShaderDataTypeToOpenGLBaseType(element.Type),
-								  element.Normalized ? GL_TRUE : GL_FALSE,
-								  static_cast<GLsizei>(layout.GetStride()),
-								  reinterpret_cast<const void*>(element.Offset));
-			++index;
-		}
-
-		constexpr uint32_t indicies[3] = {0, 1, 2};
-		m_IndexBuffer = IndexBuffer::Create(indicies, sizeof(indicies) / sizeof(uint32_t));
+		Ref<IndexBuffer> indexBuffer;
+		indexBuffer = IndexBuffer::Create(squareIndicies, std::size(squareIndicies));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		std::string vertexSrc = R"(
 			#version 450 core
@@ -180,9 +139,8 @@ namespace Granola
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			m_Shader->Bind(); // as first step but don't need to be here
-
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			m_VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			if (const GLenum error = glGetError(); error != GL_NO_ERROR)
 				GRL_CORE_ERROR("OpenGL Error: {0}", error);
