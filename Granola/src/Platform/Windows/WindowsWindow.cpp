@@ -1,6 +1,6 @@
 ﻿#include "grlpch.h"
 #include "WindowsWindow.h"
-#include "Granola/Log.h"
+#include "Granola/Core/Log.h"
 #include "Granola/Events/ApplicationEvent.h"
 #include "Granola/Events/KeyEvent.h"
 #include "Granola/Events/MouseEvent.h"

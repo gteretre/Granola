@@ -1,6 +1,7 @@
 ﻿/* EntryPoint.h */
 #pragma once
-#include "Granola/Log.h" // TODO take it to core
+#include "App.h"
+#include "Granola/Core/Log.h"
 #ifdef GRL_PLATFORM_WINDOWS
 
 int main(int argc, char **argv)

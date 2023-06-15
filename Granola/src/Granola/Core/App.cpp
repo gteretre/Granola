@@ -2,9 +2,10 @@
 #include "App.h"
 #include "Input.h"
 #include "Window.h"
-#include "Events/ApplicationEvent.h"
-#include "Events/Event.h"
-#include "Granola/Log.h"
+#include "Granola/Core/Log.h"
+#include "Granola/Events/ApplicationEvent.h"
+#include "Granola/Events/Event.h"
+#include "Granola/Utilities/ColorUtilities.h"
 
 #include <glad/glad.h>
 
@@ -40,12 +41,6 @@ namespace Granola
 		return 0;
 	}
 
-	static constexpr glm::vec3 RGBtoFloats(const int r, const int g, const int b)
-	{
-		return {static_cast<float>(r) / 255.0f, static_cast<float>(g) / 255.0f, static_cast<float>(b) / 255.0f};
-	}
-
-	//static constexpr glm::vec3 HEXtoFloats(const long hex)
 
 	App::App() : m_ImGuiLayer(new ImGuiLayer()) // may be better to use unique_ptr in the future
 	{
@@ -60,9 +55,9 @@ namespace Granola
 		glCreateVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
-		constexpr auto col1 = RGBtoFloats(87, 27, 43);
-		constexpr auto col2 = RGBtoFloats(17, 56, 56);
-		constexpr auto col3 = RGBtoFloats(30, 133, 100);
+		constexpr glm::vec3 col1 = ColorUtilities::RGBtoFloats(87, 27, 43);
+		constexpr glm::vec3 col2 = ColorUtilities::RGBtoFloats(17, 56, 56);
+		constexpr glm::vec3 col3 = ColorUtilities::RGBtoFloats(30, 133, 100);
 		constexpr float a = 1.0f;
 
 		// anti-clockwise
@@ -72,7 +67,8 @@ namespace Granola
 			0.0f, 0.5f, 0.0f, col3.r, col3.g, col3.b, a // top
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
+		m_VertexBuffer = VertexBuffer::Create(verticies, sizeof(verticies));
+		//m_VertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
 		const BufferLayout layout = {
 			{ShaderDataType::Float3, "a_Position"},
 			//{ShaderDataType::Float3, "a_Normal"},
@@ -94,7 +90,7 @@ namespace Granola
 		}
 
 		constexpr uint32_t indicies[3] = {0, 1, 2};
-		m_IndexBuffer.reset(IndexBuffer::Create(indicies, std::size(indicies)));
+		m_IndexBuffer = IndexBuffer::Create(indicies, sizeof(indicies) / sizeof(uint32_t));
 
 		std::string vertexSrc = R"(
 			#version 450 core

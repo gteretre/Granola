@@ -3,7 +3,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Granola/App.h"
+#include "Granola/Core/App.h"
 
 namespace Granola
 {

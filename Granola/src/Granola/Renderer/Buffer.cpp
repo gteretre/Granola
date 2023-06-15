@@ -8,30 +8,45 @@
 
 namespace Granola
 {
-	VertexBuffer *VertexBuffer::Create(const float *vertices, const uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(const float *vertices, const uint32_t size)
 	{
 		switch (Renderer::GetRendererAPI())
 		{
-		case RendererAPI::None:
+		case Renderer::API::None:
 			GRL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
-		case RendererAPI::OpenGL:
-			return new OpenGLVertexBuffer(vertices, size);
+		case Renderer::API::OpenGL:
+			return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 
 		GRL_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	IndexBuffer *IndexBuffer::Create(const uint32_t *indices, const uint32_t count)
+	Ref<VertexBuffer> VertexBuffer::Create(const uint32_t size)
 	{
 		switch (Renderer::GetRendererAPI())
 		{
-		case RendererAPI::None:
+		case Renderer::API::None:
 			GRL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
-		case RendererAPI::OpenGL:
-			return new OpenGLIndexBuffer(indices, count);
+		case Renderer::API::OpenGL:
+			return CreateRef<OpenGLVertexBuffer>(size);
+		}
+
+		GRL_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
+	Ref<IndexBuffer> IndexBuffer::Create(const uint32_t *indices, const uint32_t count)
+	{
+		switch (Renderer::GetRendererAPI())
+		{
+		case Renderer::API::None:
+			GRL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
+			return nullptr;
+		case Renderer::API::OpenGL:
+			return CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 
 		GRL_CORE_ASSERT(false, "Unknown RendererAPI!");

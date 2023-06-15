@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Granola/Window.h"
+#include "Granola/Core/Window.h"
 #include "Granola/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

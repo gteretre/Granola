@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "Core.h"
+#include "Base.h"
 #include "Window.h"
-#include "Events/ApplicationEvent.h"
-#include "Events/Event.h"
-#include "Granola/LayerStack.h"
+#include "Granola/Core/LayerStack.h"
+#include "Granola/Events/ApplicationEvent.h"
+#include "Granola/Events/Event.h"
 #include "Granola/ImGui/ImGuiLayer.h"
 
 #include "Granola/Renderer/Buffer.h" // TODO remporary
@@ -36,8 +36,8 @@ namespace Granola
 		unsigned int m_VertexArray{};
 
 		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		Ref<VertexBuffer> m_VertexBuffer;
+		Ref<IndexBuffer> m_IndexBuffer;
 	};
 
 	// To be defined in client

@@ -1,6 +1,6 @@
 ﻿#include "grlpch.h"
 #include "OpenGLContext.h"
-#include "Granola/Core.h"
+#include "Granola/Core/Base.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

@@ -33,13 +33,13 @@
     <ClInclude Include="src\Granola.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\App.h">
+    <ClInclude Include="src\Granola\Core\App.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\Core.h">
+    <ClInclude Include="src\Granola\Core\Base.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\EntryPoint.h">
+    <ClInclude Include="src\Granola\Core\EntryPoint.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
     <ClInclude Include="src\Granola\Events\ApplicationEvent.h">
@@ -57,28 +57,28 @@
     <ClInclude Include="src\Granola\ImGui\ImGuiLayer.h">
       <Filter>src\Granola\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\Input.h">
+    <ClInclude Include="src\Granola\Core\Input.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\KeyCodes.h">
+    <ClInclude Include="src\Granola\Core\KeyCodes.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\Layer.h">
+    <ClInclude Include="src\Granola\Core\Layer.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\LayerStack.h">
+    <ClInclude Include="src\Granola\Core\LayerStack.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\Log.h">
+    <ClInclude Include="src\Granola\Core\Log.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\MouseButtonCodes.h">
+    <ClInclude Include="src\Granola\Core\MouseCodes.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
     <ClInclude Include="src\Granola\Renderer\GraphicsContext.h">
       <Filter>src\Granola\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Granola\Window.h">
+    <ClInclude Include="src\Granola\Core\Window.h">
       <Filter>src\Granola</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
@@ -97,9 +97,12 @@
     <ClInclude Include="src\Granola\Renderer\Buffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Granola\Renderer\Renderer.h" />
+    <ClInclude Include="src\Granola\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Granola\Utilities\PlatformUtilities.h" />
+    <ClInclude Include="src\Granola\Utilities\ColorUtilities.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Granola\App.cpp">
+    <ClCompile Include="src\Granola\Core\App.cpp">
       <Filter>src\Granola</Filter>
     </ClCompile>
     <ClCompile Include="src\Granola\ImGui\ImGuiBuild.cpp">
@@ -108,13 +111,13 @@
     <ClCompile Include="src\Granola\ImGui\ImGuiLayer.cpp">
       <Filter>src\Granola\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Granola\Layer.cpp">
+    <ClCompile Include="src\Granola\Core\Layer.cpp">
       <Filter>src\Granola</Filter>
     </ClCompile>
-    <ClCompile Include="src\Granola\LayerStack.cpp">
+    <ClCompile Include="src\Granola\Core\LayerStack.cpp">
       <Filter>src\Granola</Filter>
     </ClCompile>
-    <ClCompile Include="src\Granola\Log.cpp">
+    <ClCompile Include="src\Granola\Core\Log.cpp">
       <Filter>src\Granola</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
@@ -133,6 +136,8 @@
     <ClCompile Include="src\Granola\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Granola\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Granola\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Granola\Utilities\ColorUtilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

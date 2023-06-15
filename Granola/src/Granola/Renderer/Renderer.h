@@ -8,18 +8,18 @@
 
 namespace Granola
 {
-	enum class RendererAPI
-	{
-		None = 0,
-		OpenGL = 1
-	};
-
 	class Renderer
 	{
 	public:
-		static RendererAPI GetRendererAPI() { return s_RenderAPI; }
+		enum class API
+		{
+			None = 0,
+			OpenGL = 1
+		};
+
+		static API GetRendererAPI() { return s_RenderAPI; }
 
 	private:
-		inline static RendererAPI s_RenderAPI = RendererAPI::OpenGL;
+		inline static API s_RenderAPI = API::OpenGL;
 	};
 }

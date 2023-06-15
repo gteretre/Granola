@@ -7,7 +7,7 @@
 #pragma once
 #include "grlpch.h"
 #include "Layer.h"
-#include "Granola/Core.h"
+#include "Granola/Core/Base.h"
 
 namespace Granola
 {

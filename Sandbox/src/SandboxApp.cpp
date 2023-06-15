@@ -1,5 +1,5 @@
 #include <Granola.h>
-#include <Granola/Log.h>
+#include <Granola/Core/Log.h>
 
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>

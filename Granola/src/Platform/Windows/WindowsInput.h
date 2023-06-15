@@ -5,7 +5,7 @@
 // Copyright Michael Kowalski 2023
 
 #pragma once
-#include "Granola/Input.h"
+#include "Granola/Core/Input.h"
 
 namespace Granola
 {

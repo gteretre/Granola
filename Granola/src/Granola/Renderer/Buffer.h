@@ -24,7 +24,7 @@ namespace Granola
 		Bool
 	};
 
-	[[nodiscard]] static uint32_t ShaderDataTypeSize(const ShaderDataType type) // TODO try constexpr
+	[[nodiscard]] static uint32_t ShaderDataTypeSize(const ShaderDataType type)
 	{
 		switch (type)
 		{
@@ -86,9 +86,9 @@ namespace Granola
 			case ShaderDataType::Float4:
 				return 4;
 			case ShaderDataType::Mat3:
-				return 3 * 3;
+				return 3; // 3* float3
 			case ShaderDataType::Mat4:
-				return 4 * 4;
+				return 4; // 4*float4
 			case ShaderDataType::Int:
 				return 1;
 			case ShaderDataType::Int2:
@@ -131,7 +131,7 @@ namespace Granola
 	private:
 		void CalculateOffsetsAndStride()
 		{
-			uint32_t offset = 0;
+			uint32_t offset = 0; // or size_t
 			m_Stride = 0;
 			for (auto &element : m_Elements)
 			{
@@ -152,9 +152,12 @@ namespace Granola
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
+
 		virtual void SetLayout(const BufferLayout &layout) = 0;
 		[[nodiscard]] virtual const BufferLayout &GetLayout() const = 0;
-		static VertexBuffer *Create(const float *vertices, uint32_t size);
+
+		static Ref<VertexBuffer> Create(uint32_t size);
+		static Ref<VertexBuffer> Create(const float *vertices, uint32_t size);
 	};
 
 	class IndexBuffer
@@ -164,7 +167,9 @@ namespace Granola
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
+
 		[[nodiscard]] virtual uint32_t GetCount() const = 0;
-		static IndexBuffer *Create(const uint32_t *indices, uint32_t count);
+
+		static Ref<IndexBuffer> Create(const uint32_t *indices, uint32_t count);
 	};
 }

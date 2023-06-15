@@ -1,7 +1,7 @@
 ﻿/* Log.h */
 #pragma once
 #include "grlpch.h"
-#include "Core.h"
+#include "Base.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include "glm/gtx/string_cast.hpp"
