@@ -8,12 +8,12 @@ namespace Granola
 {
 	Ref<VertexBuffer> VertexBuffer::Create(const float *vertices, const uint32_t size)
 	{
-		switch (Renderer::GetRendererAPI())
+		switch (Renderer::GetAPI())
 		{
-		case Renderer::API::None:
+		case RendererAPI::API::None:
 			GRL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
-		case Renderer::API::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 
@@ -23,12 +23,12 @@ namespace Granola
 
 	Ref<VertexBuffer> VertexBuffer::Create(const uint32_t size)
 	{
-		switch (Renderer::GetRendererAPI())
+		switch (Renderer::GetAPI())
 		{
-		case Renderer::API::None:
+		case RendererAPI::API::None:
 			GRL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
-		case Renderer::API::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return CreateRef<OpenGLVertexBuffer>(size);
 		}
 
@@ -38,12 +38,12 @@ namespace Granola
 
 	Ref<IndexBuffer> IndexBuffer::Create(const uint32_t *indices, const uint32_t count)
 	{
-		switch (Renderer::GetRendererAPI())
+		switch (Renderer::GetAPI())
 		{
-		case Renderer::API::None:
+		case RendererAPI::API::None:
 			GRL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
-		case Renderer::API::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 

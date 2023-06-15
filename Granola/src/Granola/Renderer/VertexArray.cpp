@@ -8,12 +8,12 @@ namespace Granola
 {
 	Ref<VertexArray> VertexArray::Create()
 	{
-		switch (Renderer::GetRendererAPI())
+		switch (Renderer::GetAPI())
 		{
-		case Renderer::API::None:
+		case RendererAPI::API::None:
 			GRL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
-		case Renderer::API::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return CreateRef<OpenGLVertexArray>();
 		}
 

@@ -4,10 +4,8 @@
 #include "Granola/Core/Log.h"
 #include "Granola/Events/ApplicationEvent.h"
 #include "Granola/Events/Event.h"
+#include "Granola/Renderer/Renderer.h"
 #include "Granola/Utilities/ColorUtilities.h"
-
-#include <glad/glad.h>
-
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
 namespace Granola
@@ -23,23 +21,20 @@ namespace Granola
 		PushOverlay(m_ImGuiLayer);
 
 		//---Rendering-------------------------------------
-		constexpr glm::vec3 col1 = ColorUtilities::RGBtoFloats(120, 27, 73);
-		constexpr glm::vec3 col2 = ColorUtilities::RGBtoFloats(17, 76, 126);
-		constexpr glm::vec3 col3 = ColorUtilities::RGBtoFloats(30, 173, 120);
 		constexpr float a = 1.0f;
 
 		m_VertexArray = VertexArray::Create();
 		const float squareVericies[6 * 7] = {
-			-0.5f, -0.75f, 0.0f, col1.r, col1.g, col1.b, a,
-			0.5f, -0.5f, 0.0f, col2.r + 0.3f, col2.g - 0.2f, col2.b - 0.2f, a,
-			0.5f, -0.5f, 0.0f, col2.r, col2.g, col2.b, a,
-			0.0f, 0.75f, 0.0f, col3.r, col3.g, col3.b, a,
-			0.15f, 0.15f, 0.0f, col3.r - 0.2f, col3.g, col3.b + 0.5f, a,
-			-0.75f, 0.5f, 0.0f, col3.r + 0.4f, col3.g, col3.b, a
+			-0.5f, -0.75f, 0.0f, RGBColorPallete::Red.r, RGBColorPallete::Red.g, RGBColorPallete::Red.b, a,
+			0.5f, -0.5f, 0.0f, RGBColorPallete::Blue.r, RGBColorPallete::Blue.g, RGBColorPallete::Blue.b, a,
+			0.5f, -0.5f, 0.0f, RGBColorPallete::Purple.r, RGBColorPallete::Purple.g, RGBColorPallete::Purple.b, a,
+			0.0f, 0.75f, 0.0f, RGBColorPallete::Orange.r, RGBColorPallete::Orange.g, RGBColorPallete::Orange.b, a,
+			0.15f, 0.15f, 0.0f, RGBColorPallete::Yellow.r, RGBColorPallete::Yellow.g, RGBColorPallete::Yellow.b, a,
+			-0.75f, 0.5f, 0.0f, RGBColorPallete::Green.r, RGBColorPallete::Green.g, RGBColorPallete::Green.b, a
 		};
-		Ref<VertexBuffer> vertexBuffer;
-		vertexBuffer = VertexBuffer::Create(squareVericies, sizeof(squareVericies));
-		BufferLayout squareLayout = {
+
+		const Ref<VertexBuffer> vertexBuffer = VertexBuffer::Create(squareVericies, sizeof(squareVericies));
+		const BufferLayout squareLayout = {
 			{ShaderDataType::Float3, "a_Position"},
 			{ShaderDataType::Float4, "a_Color"},
 		};
@@ -47,8 +42,7 @@ namespace Granola
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 		constexpr uint32_t squareIndicies[12] = {0, 1, 2, 2, 3, 0, 4, 4, 5, 1, 3, 5};
 
-		Ref<IndexBuffer> indexBuffer;
-		indexBuffer = IndexBuffer::Create(squareIndicies, std::size(squareIndicies));
+		const Ref<IndexBuffer> indexBuffer = IndexBuffer::Create(squareIndicies, std::size(squareIndicies));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		std::string vertexSrc = R"(
@@ -115,14 +109,14 @@ namespace Granola
 		}
 	}
 
+	//#define GRL_HUNT_OPENGL_ERRORS
 	void App::Run() const
 	{
 		GRL_CORE_INFO("Starting Granola Engine");
-		std::vector<float> rgba = {0.1f, 0.3f, 0.0f, 1.0f};
+		glm::vec4 rgba = {0.1f, 0.3f, 0.0f, 1.0f};
 		bool isBlue = false;
 		while (m_IsRunning)
 		{
-			//---Just for fun--------------------------------------
 			if (rgba[2] > 0.35f)
 				isBlue = true;
 			else if (rgba[2] < 0.05f)
@@ -131,31 +125,27 @@ namespace Granola
 				rgba[2] += 0.001f;
 			else
 				rgba[2] -= 0.001f;
-			//------------------------------------------------------
 
+			RenderCommand::SetClearColor(rgba);
+			RenderCommand::Clear();
 
-			//---OpenGL Layer---------------------------------------
-			glClearColor(rgba[0], rgba[1], rgba[2], rgba[3]);
-			glClear(GL_COLOR_BUFFER_BIT);
+			Renderer::BeginScene();
+			m_Shader->Bind();
+			Renderer::Submit(m_VertexArray);
+			Renderer::EndScene();
 
-			m_Shader->Bind(); // as first step but don't need to be here
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
+#ifdef GRL_HUNT_OPENGL_ERRORS
 			if (const GLenum error = glGetError(); error != GL_NO_ERROR)
 				GRL_CORE_ERROR("OpenGL Error: {0}", error);
+#endif
 
 			for (const auto layer : m_LayerStack)
 				layer->OnUpdate();
-			//------------------------------------------------------
 
-
-			//---ImGui Layer----------------------------------------
 			ImGuiLayer::Begin();
 			for (const auto layer : m_LayerStack)
 				layer->OnImGuiRender();
 			ImGuiLayer::End();
-			//------------------------------------------------------
 
 			m_Window->OnUpdate();
 		}

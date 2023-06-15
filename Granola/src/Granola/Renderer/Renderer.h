@@ -5,21 +5,19 @@
 // Copyright Michael Kowalski 2023
 
 #pragma once
+#include "RenderCommand.h"
 
 namespace Granola
 {
 	class Renderer
 	{
 	public:
-		enum class API
-		{
-			None = 0,
-			OpenGL = 1
-		};
+		static void BeginScene();
+		static void EndScene();
 
-		static API GetRendererAPI() { return s_RenderAPI; }
+		static void Submit(const Ref<VertexArray> &vertexArray);
 
-	private:
-		inline static API s_RenderAPI = API::OpenGL;
+
+		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	};
 }
