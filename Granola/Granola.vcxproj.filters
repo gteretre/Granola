@@ -104,6 +104,7 @@
     <ClInclude Include="src\Granola\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Granola\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Granola\Renderer\OrthographicCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Granola\Core\App.cpp">
@@ -146,6 +147,7 @@
     <ClCompile Include="src\Granola\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Granola\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Granola\Renderer\OrthographicCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

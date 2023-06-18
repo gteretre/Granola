@@ -2,10 +2,14 @@
 #pragma once
 #include "grlpch.h"
 #include "Base.h"
+#include "Granola/Events/Event.h"
+
+#include <glm/glm.hpp>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include "glm/gtx/string_cast.hpp"
 
+//#define GRL_LOGGING_WITH_SPDLOG
 // ignore all spdlog warnings
 #pragma warning(push, 0)
 #include <spdlog/spdlog.h>
@@ -87,6 +91,7 @@ namespace Granola
 		static void log(const std::string &color, const std::string &type, const std::string &message);
 	};
 
+#ifdef GRL_LOGGING_WITH_SPDLOG
 	class Logspd
 	{
 	public:
@@ -99,32 +104,72 @@ namespace Granola
 		static Ref<spdlog::logger> s_CoreLogger;
 		static Ref<spdlog::logger> s_ClientLogger;
 	};
-}
+#endif
 
+
+	//---Operator overloads---
+	inline std::ostream &operator<<(std::ostream &os, const Event &currentEvent)
+	{
+		return os << currentEvent.ToString();
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::vec2 &vec)
+	{
+		return os << "(" << vec.x << ", " << vec.y << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::vec3 &vec)
+	{
+		return os << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::vec4 &vec)
+	{
+		return os << "(" << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::mat4 &mat)
+	{
+		return os << "(" << mat[0] << ", " << mat[1] << ", " << mat[2] << ", " << mat[3] << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::mat3 &mat)
+	{
+		return os << "(" << mat[0] << ", " << mat[1] << ", " << mat[2] << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::mat2 &mat)
+	{
+		return os << "(" << mat[0] << ", " << mat[1] << ")";
+	}
+
+	inline std::ostream &operator<<(std::ostream &os, const glm::quat &quat)
+	{
+		return os << "(" << quat.x << ", " << quat.y << ", " << quat.z << ", " << quat.w << ")";
+	}
+
+	template <typename OStream, glm::length_t L, typename T, glm::qualifier Q>
+	OStream &operator<<(OStream &os, const glm::vec<L, T, Q> &vector)
+	{
+		return os << glm::to_string(vector);
+	}
+
+	template <typename OStream, glm::length_t C, glm::length_t R, typename T, glm::qualifier Q>
+	OStream &operator<<(OStream &os, const glm::mat<C, R, T, Q> &matrix)
+	{
+		return os << glm::to_string(matrix);
+	}
+
+	template <typename OStream, typename T, glm::qualifier Q>
+	OStream &operator<<(OStream &os, glm::qua<T, Q> quaternion)
+	{
+		return os << glm::to_string(quaternion);
+	}
+}
 
 #ifdef GRL_DEBUG
 #define GRL_LOGGING
 #endif
-
-//#define GRL_LOGGING_WITH_SPDLOG
-
-template <typename OStream, glm::length_t L, typename T, glm::qualifier Q>
-OStream &operator<<(OStream &os, const glm::vec<L, T, Q> &vector)
-{
-	return os << glm::to_string(vector);
-}
-
-template <typename OStream, glm::length_t C, glm::length_t R, typename T, glm::qualifier Q>
-OStream &operator<<(OStream &os, const glm::mat<C, R, T, Q> &matrix)
-{
-	return os << glm::to_string(matrix);
-}
-
-template <typename OStream, typename T, glm::qualifier Q>
-OStream &operator<<(OStream &os, glm::qua<T, Q> quaternion)
-{
-	return os << glm::to_string(quaternion);
-}
 
 // Core Log macros
 #ifdef GRL_LOGGING
