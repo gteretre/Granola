@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Timestep.h"
 #include "Granola/Events/Event.h"
 
 namespace Granola
@@ -28,7 +29,7 @@ namespace Granola
 			// temporary empty, to be implemented
 		}
 
-		virtual void OnUpdate()
+		virtual void OnUpdate(const Timestep timestep)
 		{
 			// temporary empty, to be implemented
 		}

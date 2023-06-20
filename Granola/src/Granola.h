@@ -21,6 +21,8 @@
 #include "Granola/Core/KeyCodes.h"
 #include "Granola/Core/MouseCodes.h"
 
+#include "Granola/Core/Timestep.h"
+
 #include "Granola/Core/Log.h"
 //------------------------------------
 

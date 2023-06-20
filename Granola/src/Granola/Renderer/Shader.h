@@ -13,13 +13,11 @@ namespace Granola
 	class Shader
 	{
 	public:
-		Shader(const std::string &vertexSource, const std::string &fragmentSource);
-		~Shader();
+		Shader() = default;
+		virtual ~Shader() = default;
 
-		void Bind() const;
-		static void Unbind();
-
-		void UploadUniformMat4(const std::string &name, const glm::mat4 &matrix) const;
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 
 		// In the future, we will want to cache uniforms
 		/*virtual void SetInt(const std::string &name, int value) = 0;
@@ -30,10 +28,6 @@ namespace Granola
 		virtual void SetFloat4(const std::string &name, const glm::vec4 &value) = 0;
 		virtual void SetMat4(const std::string &name, const glm::mat4 &value) = 0;*/
 
-
-		[[nodiscard]] uint32_t GetRendererID() const { return m_RendererID; }
-
-	private:
-		uint32_t m_RendererID;
+		static Shader *Create(const std::string &vertexSource, const std::string &fragmentSource);
 	};
 }

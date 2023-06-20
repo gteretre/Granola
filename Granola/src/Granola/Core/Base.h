@@ -67,20 +67,26 @@ glEnable(GL_DEBUG_OUTPUT); glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 
 
 //---In Namespace---------------------
+
+//Granola Engine Michal Kowalski 2023
 namespace Granola
 {
+	// Granola memory management system based on unique_ptr
 	template <typename T>
 	using Scope = std::unique_ptr<T>;
 
+	// Granola memory management system based on unique_ptr
 	template <typename T, typename... Args>
 	constexpr Scope<T> CreateScope(Args &&... args)
 	{
 		return std::make_unique<T>(std::forward<Args>(args)...);
 	}
 
+	// Granola memory management system based on shared_ptr
 	template <typename T>
 	using Ref = std::shared_ptr<T>;
 
+	// Granola memory management system based on shared_ptr
 	template <typename T, typename... Args>
 	constexpr Ref<T> CreateRef(Args &&... args)
 	{
