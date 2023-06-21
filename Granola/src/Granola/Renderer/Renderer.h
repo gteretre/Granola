@@ -23,6 +23,7 @@ namespace Granola
 		 * \brief Function to initialize the renderer.
 		 * \param camera Camera to be used for rendering. From OrthographicCamera class.
 		 */
+		static void Init();
 		static void BeginScene(const OrthographicCamera &camera);
 		static void EndScene();
 

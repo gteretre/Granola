@@ -7,6 +7,11 @@ namespace Granola
 {
 	Renderer::SceneData *Renderer::m_SceneData = new SceneData;
 
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	void Renderer::BeginScene(const OrthographicCamera &camera)
 	{
 		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();

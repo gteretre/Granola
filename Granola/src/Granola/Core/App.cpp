@@ -26,6 +26,7 @@ namespace Granola
 		m_Window->SetEventCallback(GRL_BIND_EVENT_FN(OnEvent));
 		//m_Window->SetVSync(false);
 		PushOverlay(m_ImGuiLayer);
+		Renderer::Init();
 	}
 
 	App::~App() = default;

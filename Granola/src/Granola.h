@@ -3,7 +3,7 @@
 // For use by Granola applications
 
 //---Precompiled headers--------------
-//#include "grlpch.h"
+#include "grlpch.h"
 //------------------------------------
 
 
@@ -38,6 +38,7 @@
 
 #include "Granola/Renderer/Buffer.h"
 #include "Granola/Renderer/Shader.h"
+#include "Granola/Renderer/Texture.h"
 #include "Granola/Renderer/VertexArray.h"
 
 #include "Granola/Renderer/OrthographicCamera.h"

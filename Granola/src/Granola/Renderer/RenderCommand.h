@@ -12,6 +12,7 @@ namespace Granola
 	class RenderCommand
 	{
 	public:
+		static void Init() { s_RendererAPI->Init(); }
 		static void SetClearColor(const glm::vec4 &color) { s_RendererAPI->SetClearColor(color); }
 
 		static void SetClearColor(const float r, const float g, const float b, const float a)

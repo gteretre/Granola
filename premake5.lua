@@ -20,6 +20,7 @@ IncludeDir["GLFW"] = "Granola/vendor/GLFW/include"
 IncludeDir["Glad"] = "Granola/vendor/Glad/include"
 IncludeDir["ImGui"] = "Granola/vendor/imgui"
 IncludeDir["glm"] = "Granola/vendor/glm"
+IncludeDir["stb_image"] = "Granola/vendor/stb_image"
 
 group "Dependencies"
 	include "Granola/vendor/GLFW"
@@ -49,11 +50,16 @@ staticruntime "on"
 		"%{prj.name}/cpp.hint",
 		"%{prj.name}/ClassDiagram.cd",
 		-- glm
-		"Granola/vendor/glm"
+		"Granola/vendor/glm/**.hpp",
+		"Granola/vendor/glm/**.inl",
+		-- stb_image
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp"
 	}
 
 	includedirs
 	{
+		-- TODO include dir should work
 		-- source files
 		"%{prj.name}/src",
 		-- vendor
@@ -69,8 +75,11 @@ staticruntime "on"
 		"%{prj.name}/vendor/imgui",
 		"{IncludeDir.ImGui}",
 		-- glm
-		"Granola/vendor/glm",
+		"%{prj.name}/vendor/glm",
 		"{IncludeDir.glm}",
+		-- stb_image
+		"%{prj.name}/vendor/stb_image",
+		"{IncludeDir.stb_image}"
 		
 	}
 
@@ -137,7 +146,6 @@ project "Sandbox"
 		-- glm
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
-	
 	}
 
 	includedirs

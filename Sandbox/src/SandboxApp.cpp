@@ -21,37 +21,28 @@ public:
 	{
 		// example shaders
 		m_VertexArray = Granola::VertexArray::Create();
-		const float squareVericies[6 * 7] = {
-			-0.5f, -0.75f, 0.0f, Granola::RGBColorPallete::Red.r, Granola::RGBColorPallete::Red.g,
-			Granola::RGBColorPallete::Red.b, 1.0f,
-			0.5f, -0.5f, 0.0f, Granola::RGBColorPallete::Blue.r, Granola::RGBColorPallete::Blue.g,
-			Granola::RGBColorPallete::Blue.b, 1.0f,
-			0.5f, -0.5f, 0.0f, Granola::RGBColorPallete::Purple.r, Granola::RGBColorPallete::Purple.g,
-			Granola::RGBColorPallete::Purple.b, 1.0f,
-			0.0f, 0.75f, 0.0f, Granola::RGBColorPallete::Orange.r, Granola::RGBColorPallete::Orange.g,
-			Granola::RGBColorPallete::Orange.b, 1.0f,
-			0.15f, 0.15f, 0.0f, Granola::RGBColorPallete::Yellow.r, Granola::RGBColorPallete::Yellow.g,
-			Granola::RGBColorPallete::Yellow.b, 1.0f,
-			-0.75f, 0.5f, 0.0f, Granola::RGBColorPallete::Green.r, Granola::RGBColorPallete::Green.g,
-			Granola::RGBColorPallete::Green.b, 1.0f
+		constexpr float squareVericies[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // left bottom
+			0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // right bottom
+			0.5f, 0.5f, 0.0f, 1.0f, 1.0f, // right top
+			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f // left top
 		};
 
 		const Granola::Ref<Granola::VertexBuffer> vertexBuffer = Granola::VertexBuffer::Create(
 			squareVericies, sizeof(squareVericies));
 
 		const Granola::BufferLayout squareLayout = {
-			{Granola::ShaderDataType::Float3, "a_Position"},
-			{Granola::ShaderDataType::Float4, "a_Color"},
+			{Granola::ShaderDataType::Float3, "a_Position"}, {Granola::ShaderDataType::Float2, "a_TexCoord"}
 		};
 
 		vertexBuffer->SetLayout(squareLayout);
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
-		constexpr uint32_t squareIndicies[12] = {0, 1, 2, 2, 3, 0, 4, 4, 5, 1, 3, 5};
+		constexpr uint32_t squareIndicies[6] = {0, 1, 2, 2, 3, 0};
 		const Granola::Ref<Granola::IndexBuffer> indexBuffer = Granola::IndexBuffer::Create(
 			squareIndicies, std::size(squareIndicies));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		std::string vertexSrc = R"(
+		const std::string basicShaderVertexSrc = R"(
 			#version 450 core
 			
 			layout(location = 0) in vec3 a_Position;
@@ -61,32 +52,67 @@ public:
 			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
-			out vec4 v_Color;
 			
 			void main()
 			{
 				v_Position = a_Position;
-				v_Color = a_Color;
 				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
-		std::string fragmentSrc = R"(
+		const std::string basicShaderFragmentSrc = R"(
 			#version 450 core
 			
 			layout(location = 0) out vec4 o_Color;
 			in vec3 v_Position;
-			in vec4 v_Color;
 			
 			uniform vec3 u_Color;
 			
 			void main()
 			{
-				//o_Color = vec4(v_Position+0.25, 1.0);
 				o_Color = vec4(u_Color,1.0);
 			}
 		)";
-		m_Shader.reset(Granola::Shader::Create(vertexSrc, fragmentSrc));
+		m_BasicShader.reset(Granola::Shader::Create(basicShaderVertexSrc, basicShaderFragmentSrc));
+
+		const std::string textureShaderVertexSrc = R"(
+			#version 450 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+			
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+		)";
+
+		const std::string textureShaderFragmentSrc = R"(
+			#version 450 core
+			
+			layout(location = 0) out vec4 o_Color;
+
+			in vec2 v_TexCoord;
+			
+			uniform sampler2D u_Texture;
+			
+			void main()
+			{
+				o_Color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Granola::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		m_Texture = Granola::Texture2D::Create("assets/textures/textTex1.png");
+		m_TransparentTexture = Granola::Texture2D::Create("assets/textures/transparentTex.png");
+		std::dynamic_pointer_cast<Granola::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Granola::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	virtual void OnUpdate(const Granola::Timestep timestep) override
@@ -143,21 +169,24 @@ public:
 
 		Granola::Renderer::BeginScene(m_Camera);
 
-		static const glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f));
+		static const glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.3f));
 
-		std::dynamic_pointer_cast<Granola::OpenGLShader>(m_Shader)->Bind();
-		std::dynamic_pointer_cast<Granola::OpenGLShader>(m_Shader)->UploadUniformFloat3("u_Color", m_FigColor);
+		std::dynamic_pointer_cast<Granola::OpenGLShader>(m_BasicShader)->Bind();
+		std::dynamic_pointer_cast<Granola::OpenGLShader>(m_BasicShader)->UploadUniformFloat3("u_Color", m_FigColor);
 
 		for (int x = 0; x < 25; ++x)
 			for (int y = 0; y < 15; ++y)
 			{
-				glm::vec3 pos = {static_cast<float>(x) * 0.11f, static_cast<float>(y) * 0.11f, 0.0f};
+				glm::vec3 pos = {static_cast<float>(x) * 0.13f, static_cast<float>(y) * 0.13f, 0.0f};
 				const glm::mat4 transform = translate(glm::mat4(1.0f), pos) * scale;
-				Granola::Renderer::Submit(m_Shader, m_VertexArray, transform * scale);
+				Granola::Renderer::Submit(m_BasicShader, m_VertexArray, transform * scale);
 			}
 
 		const glm::mat4 transform = translate(glm::mat4(1.0f), m_FigPosition);
-		Granola::Renderer::Submit(m_Shader, m_VertexArray, transform);
+		m_Texture->Bind();
+		Granola::Renderer::Submit(m_TextureShader, m_VertexArray, transform);
+		m_TransparentTexture->Bind();
+		Granola::Renderer::Submit(m_TextureShader, m_VertexArray, transform);
 		Granola::Renderer::EndScene();
 	}
 
@@ -180,6 +209,10 @@ public:
 		ImGui::Text("Timestep: %.3f ms", timestep.GetTime());
 
 		ImGui::End();
+
+		ImGui::Begin("Debug");
+		ImGui::Text("DEBUG");
+		ImGui::End();
 	}
 
 	virtual void OnEvent(Granola::Event &event) override
@@ -187,8 +220,9 @@ public:
 	}
 
 private:
-	Granola::Ref<Granola::Shader> m_Shader;
+	Granola::Ref<Granola::Shader> m_BasicShader, m_TextureShader;
 	Granola::Ref<Granola::VertexArray> m_VertexArray;
+	Granola::Ref<Granola::Texture2D> m_Texture, m_TransparentTexture;
 
 	Granola::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
