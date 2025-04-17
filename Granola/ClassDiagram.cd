@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Granola::App">
-    <Position X="17" Y="1" Width="1.5" />
+    <Position X="23.5" Y="12.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CQAAAAAAACAAAABAAkAAAgAAAAACAAAAAgBAAACgAAI=</HashCode>
-      <FileName>src\Granola\App.h</FileName>
+      <HashCode>CQAAAgAAQCCAAABAAkAAAgAAAAACAAAAQgBAAACgAAI=</HashCode>
+      <FileName>src\Granola\Core\App.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::AppRenderEvent">
@@ -36,7 +36,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::EventDispatcher">
-    <Position X="13.5" Y="1" Width="1.5" />
+    <Position X="0.75" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAgAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\Granola\Events\Event.h</FileName>
@@ -50,21 +50,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::KeyPressedEvent">
-    <Position X="9.5" Y="9.5" Width="1.5" />
+    <Position X="9.5" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAFAAAAAAAABAAAIAAABAAAAAAABAA=</HashCode>
       <FileName>src\Granola\Events\KeyEvent.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::KeyReleasedEvent">
-    <Position X="11.25" Y="9.5" Width="1.5" />
+    <Position X="11.25" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAFAAAAAAAAAAAAAIAAAAAAAAAABAA=</HashCode>
       <FileName>src\Granola\Events\KeyEvent.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::Log">
-    <Position X="15.25" Y="1" Width="1.5" />
+    <Position X="20" Y="12.75" Width="1.5" />
     <NestedTypes>
       <Class Name="Granola::Log::GetCoreLogger&lt;...Args&gt;" Collapsed="true">
         <TypeIdentifier>
@@ -73,8 +73,8 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAACAAAAAAA=</HashCode>
-      <FileName>src\Granola\Log.h</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAACAAAIAAA=</HashCode>
+      <FileName>src\Granola\Core\Log.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::MouseButtonEvent">
@@ -85,14 +85,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::MouseButtonPressedEvent">
-    <Position X="15.25" Y="9.5" Width="1.5" />
+    <Position X="14.75" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BABAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
       <FileName>src\Granola\Events\MouseEvent.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::MouseButtonReleasedEvent">
-    <Position X="17" Y="9.5" Width="1.5" />
+    <Position X="16.75" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAgAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
       <FileName>src\Granola\Events\MouseEvent.h</FileName>
@@ -127,42 +127,42 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::ImGuiLayer">
-    <Position X="2.5" Y="6" Width="1.5" />
+    <Position X="4.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EBEAAAAAIAAAAAAAgEAABAAAQIACQAAABABBBAEAAAA=</HashCode>
+      <HashCode>ABIAAAAAAAAAAAAAgAAAAAAAAIAAEAAABAABAAAAAAA=</HashCode>
       <FileName>src\Granola\ImGui\ImGuiLayer.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::KeyTypedEvent">
-    <Position X="7.75" Y="9.5" Width="1.5" />
+    <Position X="7.75" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAAgAAAAABAA=</HashCode>
       <FileName>src\Granola\Events\KeyEvent.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::Layer">
-    <Position X="2.5" Y="1" Width="1.5" />
+    <Position X="4.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAAAAAAAAEAEAAAAAAAIAAAAAEAAABAAEABAA=</HashCode>
-      <FileName>src\Granola\Layer.h</FileName>
+      <HashCode>AAAAAAQAAAAAAAAEAEAAAAAAAIAAEAAEAAABAAEABAA=</HashCode>
+      <FileName>src\Granola\Core\Layer.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::LayerStack">
-    <Position X="8.25" Y="1" Width="1.5" />
+    <Position X="21.75" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACACAAAAAAACACAEAQAAICAAAAAAgAAAIEAAA=</HashCode>
-      <FileName>src\Granola\LayerStack.h</FileName>
+      <FileName>src\Granola\Core\LayerStack.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::Window">
     <Position X="0.75" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEAAAAAAABAAAAAAABAAQAAAEAAgAAAAEEAAAA=</HashCode>
-      <FileName>src\Granola\Window.h</FileName>
+      <HashCode>AAAAAAEAAAAAAABAAAAAAABAAQAAAGAAgAAAAEEAAAA=</HashCode>
+      <FileName>src\Granola\Core\Window.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Granola::WindowsWindow">
-    <Position X="0.75" Y="6" Width="1.5" />
+    <Position X="0.75" Y="5.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -174,43 +174,252 @@
       </Struct>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>CAAgAAEAAAAAAABAAIABAQBAAAAAEAAAgAACAEEAAAA=</HashCode>
+      <HashCode>CAAgAAEAAAAEAABAAIABAQBAAAAAECAAgAACAEEAAAA=</HashCode>
       <FileName>src\Platform\Windows\WindowsWindow.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Granola::BufferLayout">
+    <Position X="25.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAgACAAAAAAAAgCAAAQAQAAABAAAAAAAAAAAEAAI=</HashCode>
+      <FileName>src\Granola\Renderer\Buffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::ColorUtilities">
+    <Position X="7.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAAQAEAAAAABAAAAAAAAgAAQAgACAEAAAAAAAAoAAYA=</HashCode>
+      <FileName>src\Granola\Utilities\ColorUtilities.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::FileDialogs">
+    <Position X="13" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAAAA=</HashCode>
+      <FileName>src\Granola\Utilities\PlatformUtilities.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::GraphicsContext">
+    <Position X="23.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAACAAAAIAA=</HashCode>
+      <FileName>src\Granola\Renderer\GraphicsContext.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::IndexBuffer">
+    <Position X="27" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAAAAAAAAAAAAAAABAAAAAEAAAAAEAAAAAAA=</HashCode>
+      <FileName>src\Granola\Renderer\Buffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Input">
+    <Position X="2.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAhgQAAABAgAAAAAAAACAAAAAAAAg=</HashCode>
+      <FileName>src\Granola\Core\Input.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Logspd">
+    <Position X="2.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAACABAAAAAAAAAAAAAAAAAAAAABAAACAAAAAAA=</HashCode>
+      <FileName>src\Granola\Core\Log.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::OpenGLContext">
+    <Position X="23.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAgACAAAAIAA=</HashCode>
+      <FileName>src\Platform\OpenGL\OpenGLContext.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::OpenGLIndexBuffer">
+    <Position X="27" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAiAAAAAAAAEAAAAAAAAAAAAAAAQAAAAAEAAQAAAA=</HashCode>
+      <FileName>src\Platform\OpenGL\OpenGLBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::OpenGLRendererAPI">
+    <Position X="28.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAACAABAAAA=</HashCode>
+      <FileName>src\Platform\OpenGL\OpenGLRendererAPI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::OpenGLShader">
+    <Position X="30.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAiAAAAAAAAAAAAAAAAAAAAAEDoBIAAAAEAABWAEA=</HashCode>
+      <FileName>src\Platform\OpenGL\OpenGLShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::OpenGLTexture2D">
+    <Position X="32.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAiAAAAAAAAAABBIAAAAJAIAAAAAKAAAAAAEAAAAA=</HashCode>
+      <FileName>src\Platform\OpenGL\OpenGLTexture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::OpenGLVertexArray">
+    <Position X="21.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAiAARAAAAAAABABAAAAAAAAIAAAAAAAAEAAACECA=</HashCode>
+      <FileName>src\Platform\OpenGL\OpenGLVertexArray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::OpenGLVertexBuffer">
+    <Position X="25.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAiAAAAAAAAEAAAAACAAAAAACAAAAIAAAEAAAQAAA=</HashCode>
+      <FileName>src\Platform\OpenGL\OpenGLBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::OrthographicCamera">
+    <Position X="9.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAACCAAIAAAAAAAASAACAAAggAAgAAAAEAAAA=</HashCode>
+      <FileName>src\Granola\Renderer\OrthographicCamera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::RenderCommand">
+    <Position X="14.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAEAAAAAAAAAAEAAAACAABAAAA=</HashCode>
+      <FileName>src\Granola\Renderer\RenderCommand.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Renderer">
+    <Position X="4.25" Y="12.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="Granola::Renderer::SceneData">
+        <TypeIdentifier>
+          <NewMemberFileName>src\Granola\Renderer\Renderer.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAQBCACAQAAAAA=</HashCode>
+      <FileName>src\Granola\Renderer\Renderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::RendererAPI">
+    <Position X="28.75" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Granola::RendererAPI::API">
+        <TypeIdentifier>
+          <NewMemberFileName>src\Granola\Renderer\RendererAPI.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAACACCABAAAA=</HashCode>
+      <FileName>src\Granola\Renderer\RendererAPI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Shader">
+    <Position X="30.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAgAAAAAAAAAAAAAAAAAAAAAAAAEAABAAEAAAAAAA=</HashCode>
+      <FileName>src\Granola\Renderer\Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Texture">
+    <Position X="32.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAgAAAAAAAAABAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>src\Granola\Renderer\Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Texture2D">
+    <Position X="32.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Granola\Renderer\Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Time">
+    <Position X="16.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Granola\Utilities\PlatformUtilities.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::Timestep">
+    <Position X="18.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAAIBAAAAAQAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Granola\Core\Timestep.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::VertexArray">
+    <Position X="21.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAABABAAAAAAAAIAAEAAAAAEAEACAAA=</HashCode>
+      <FileName>src\Granola\Renderer\VertexArray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::VertexBuffer">
+    <Position X="25.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAgAAAAAAAAAAAAAAAAAAAAACAAEAIAAAEAAAAAAA=</HashCode>
+      <FileName>src\Granola\Renderer\Buffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Granola::WindowsInput">
+    <Position X="2.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAABAAAAAAAgAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>src\Platform\Windows\WindowsInput.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="Granola::WindowProps">
-    <Position X="10" Y="1" Width="1.5" />
+    <Position X="11.25" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAEABAAAAEAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>src\Granola\Window.h</FileName>
+      <FileName>src\Granola\Core\Window.h</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="ImGui_ImplOpenGL3_Data">
-    <Position X="4.25" Y="1" Width="1.5" />
+  <Struct Name="Granola::BufferElement">
+    <Position X="6" Y="12.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgABBAAABAQgAAAkCAAAASBgQAAAggAAABAIE=</HashCode>
-      <FileName>src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp</FileName>
+      <HashCode>AAAAQAEAAAAAgIAAAAAAAAQAAAAAAAAAAQAAAAAAgAA=</HashCode>
+      <FileName>src\Granola\Renderer\Buffer.h</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="ImGui_ImplOpenGL3_VtxAttribState">
-    <Position X="6.5" Y="1" Width="1.5" />
+  <Struct Name="Granola::RGBColorPallete">
+    <Position X="27" Y="10" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABEEAAAAAgIAAAAAAAAAAQAAAAQAAAQAAAAAAAAA=</HashCode>
-      <FileName>src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp</FileName>
+      <HashCode>AgAOAQRAAEAgIpAAABEAREAAHAAAAAACCAAEADABAIE=</HashCode>
+      <FileName>src\Granola\Utilities\ColorUtilities.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Enum Name="Granola::EventCategory">
-    <Position X="18.75" Y="1" Width="1.5" />
+    <Position X="6" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAQAAAAAAAAAAAAAAAAAAAQAAQAAEAAIA=</HashCode>
       <FileName>src\Granola\Events\Event.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Granola::EventType">
-    <Position X="20.5" Y="1" Width="1.5" />
+    <Position X="7.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAEACAAAAAAgAAAIgAAAAgAAAAEBAgAAAAAIABFgAQA=</HashCode>
       <FileName>src\Granola\Events\Event.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Granola::ShaderDataType">
+    <Position X="9.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAQAAAAAgAAAAAAAMAgAAAAAAAAAAAAEgACA=</HashCode>
+      <FileName>src\Granola\Renderer\Buffer.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

@@ -145,6 +145,13 @@
       <Project>{A90F2C6E-15EF-AA09-1E07-36E08A65116B}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\textTex1.png" />
+    <Image Include="assets\textures\transparentTex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\Texture.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

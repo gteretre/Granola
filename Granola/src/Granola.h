@@ -2,11 +2,6 @@
 
 // For use by Granola applications
 
-//---Precompiled headers--------------
-#include "grlpch.h"
-//------------------------------------
-
-
 //---Entry Point----------------------
 #include "Granola/Core/EntryPoint.h"
 //------------------------------------

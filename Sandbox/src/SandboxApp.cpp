@@ -43,7 +43,7 @@ public:
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		const std::string basicShaderVertexSrc = R"(
-			#version 450 core
+			#version 410 core
 			
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
@@ -61,7 +61,7 @@ public:
 		)";
 
 		const std::string basicShaderFragmentSrc = R"(
-			#version 450 core
+			#version 410 core
 			
 			layout(location = 0) out vec4 o_Color;
 			in vec3 v_Position;
@@ -73,43 +73,75 @@ public:
 				o_Color = vec4(u_Color,1.0);
 			}
 		)";
-		m_BasicShader.reset(Granola::Shader::Create(basicShaderVertexSrc, basicShaderFragmentSrc));
 
-		const std::string textureShaderVertexSrc = R"(
-			#version 450 core
-			
+		const std::string testShaderVertexSrc = R"(
+			#version 410 core
+
 			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
+			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
 
-			out vec2 v_TexCoord;
-			
+			out vec3 v_Position;
+			out vec4 v_Color;
+
 			void main()
 			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+				v_Position = a_Position;
+			    v_Color = a_Color;
+			    gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+
+		)";
+
+		const std::string testShaderFragmentSrc = R"(
+			#version 410 core
+
+			in vec3 v_Position;
+			in vec4 v_Color;
+
+			uniform float iTime;
+			uniform vec2 iResolution;
+
+			out vec4 fragColor;
+
+			vec3 palette( float t ) {
+			    vec3 a = vec3(0.5, 0.5, 0.5);
+			    vec3 b = vec3(0.5, 0.5, 0.5);
+			    vec3 c = vec3(1.0, 1.0, 1.0);
+			    vec3 d = vec3(0.263,0.416,0.557);
+
+			    return a + b*cos( 6.28318*(c*t+d) );
+			}
+
+			void main() {
+			    vec2 uv = (v_Position.xy * 2.0 - iResolution.xy) / iResolution.y;
+			    vec2 uv0 = uv;
+			    vec3 finalColor = vec3(0.0);
+			    
+			    for (float i = 0.0; i < 4.0; i++) {
+			        uv = fract(uv * 1.5) - 0.5;
+
+			        float d = length(uv) * exp(-length(uv0));
+
+			        vec3 col = palette(length(uv0) + i*.4 + iTime*.4);
+
+			        d = sin(d*8. + iTime)/8.;
+			        d = abs(d);
+
+			        d = pow(0.01 / d, 1.2);
+
+			        finalColor += col * d;
+			    }
+			        
+			    fragColor = vec4(finalColor, 1.0) * v_Color;
 			}
 		)";
 
-		const std::string textureShaderFragmentSrc = R"(
-			#version 450 core
-			
-			layout(location = 0) out vec4 o_Color;
-
-			in vec2 v_TexCoord;
-			
-			uniform sampler2D u_Texture;
-			
-			void main()
-			{
-				o_Color = texture(u_Texture, v_TexCoord);
-			}
-		)";
-
-		m_TextureShader.reset(Granola::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		m_BasicShader.reset(Granola::Shader::Create(testShaderVertexSrc, testShaderFragmentSrc));
 		m_Texture = Granola::Texture2D::Create("assets/textures/textTex1.png");
+		m_TextureShader.reset(Granola::Shader::Create("assets/shaders/Texture.glsl"));
 		m_TransparentTexture = Granola::Texture2D::Create("assets/textures/transparentTex.png");
 		std::dynamic_pointer_cast<Granola::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Granola::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -220,9 +252,11 @@ public:
 	}
 
 private:
-	Granola::Ref<Granola::Shader> m_BasicShader, m_TextureShader;
+	Granola::Ref<Granola::Shader> m_BasicShader;
+	Granola::Ref<Granola::Shader> m_TextureShader;
 	Granola::Ref<Granola::VertexArray> m_VertexArray;
-	Granola::Ref<Granola::Texture2D> m_Texture, m_TransparentTexture;
+	Granola::Ref<Granola::Texture2D> m_Texture;
+	Granola::Ref<Granola::Texture2D> m_TransparentTexture;
 
 	Granola::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

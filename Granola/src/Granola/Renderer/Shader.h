@@ -29,5 +29,6 @@ namespace Granola
 		virtual void SetMat4(const std::string &name, const glm::mat4 &value) = 0;*/
 
 		static Shader *Create(const std::string &vertexSource, const std::string &fragmentSource);
+		static Shader *Create(const std::string &filepath);
 	};
 }
